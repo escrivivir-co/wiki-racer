@@ -10,6 +10,7 @@ export interface Dom {
 
 export interface EntradaEstructura {
     externos: EntradaElemento[];
+    descartados: EntradaElemento[];
     internos: EntradaElemento[];
     headers?: EntradaElemento[];
 }
@@ -68,7 +69,8 @@ export class Engine {
             return {
                 externos: [],
                 internos: [],
-                headers: []
+                headers: [],
+                descartados: []
             }
         }
     }

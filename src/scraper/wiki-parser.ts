@@ -60,13 +60,19 @@ export class WikiParser {
             return acumulado;
         }
 
+        const base = this.base.replace("https://", "").replace("/wiki", "");
         return {
-            internos: enlaces.filter(c => c.id.indexOf(this.base) > -1)
+            internos: enlaces.filter(c => c.id.indexOf(base) > -1)
                 .filter(c =>
                     !hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) &&
                     !hasRescrictedWord(c.id, WIKIMETA_WORDS_ID)
                 ).sort((a, b) => sort(a, b)).reduce(reduce, []),
-            externos: enlaces.filter(c => c.id.indexOf(this.base) == -1)
+            descartados: enlaces.filter(c => c.id.indexOf(base) > -1)
+                .filter(c =>
+                    hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) ||
+                    hasRescrictedWord(c.id, WIKIMETA_WORDS_ID)
+                ).sort((a, b) => sort(a, b)).reduce(reduce, []),
+            externos: enlaces.filter(c => c.id.indexOf(base) == -1)
                 .filter(c =>
                     !hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) &&
                     !hasRescrictedWord(c.id, WIKIMETA_WORDS_ID)

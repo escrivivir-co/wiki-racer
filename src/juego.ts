@@ -274,7 +274,8 @@ export class Juego {
                 msg.camino_info.candidatos = {
                     internos: [],
                     externos: [],
-                    headers: msg.camino_info.candidatos.headers
+                    headers: msg.camino_info.candidatos.headers,
+                    descartados: []
                 };
 
             } else {
@@ -316,7 +317,8 @@ export class Juego {
                 candidatos: {
                     internos: [],
                     externos: [],
-                    headers: []
+                    headers: [],
+                    descartados: [],
                 }
             }
         }

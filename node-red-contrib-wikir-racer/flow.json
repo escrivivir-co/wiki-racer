@@ -1,0 +1,968 @@
+[
+    {
+        "id": "eaf05303a4bedcb4",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f4028dc7e6195d21",
+        "type": "game",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "world": "56680a31b343cddd",
+        "x": 250,
+        "y": 480,
+        "wires": [
+            [
+                "68119736ca84e536",
+                "04586cd07d640c76",
+                "786c1bd762091f92",
+                "2286610c48c45df6",
+                "b76910ad1c1bb651",
+                "3e47fcd26c67f505",
+                "6faeddd8239cc8a1"
+            ]
+        ]
+    },
+    {
+        "id": "b62bb1afb35b0ddb",
+        "type": "inject",
+        "z": "eaf05303a4bedcb4",
+        "name": "Configurar Juego",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"clave\":\"Juego-1\",\"inicio\":\"Esquema_Nacional_de_Seguridad\",\"final\":\"Isaac_Asimov\",\"base\":\"https://es.wikipedia.org/wiki/\",\"disco\":\"/Users/morente/Desktop/wiki-racer/CRIPTA\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "1a074cf00fc302ce",
+                "b9117df94767d2f4"
+            ]
+        ]
+    },
+    {
+        "id": "1a074cf00fc302ce",
+        "type": "ui_form",
+        "z": "eaf05303a4bedcb4",
+        "name": "Configurar Juego",
+        "label": "Partida",
+        "group": "75561547e129ef16",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "clave",
+                "value": "clave",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "inicio",
+                "value": "inicio",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "final",
+                "value": "final",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "base",
+                "value": "base",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "disco",
+                "value": "disco",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "clave": "",
+            "inicio": "",
+            "final": "",
+            "base": "",
+            "disco": ""
+        },
+        "payload": "",
+        "submit": "Jugar",
+        "cancel": "Reiniciar",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 510,
+        "y": 120,
+        "wires": [
+            [
+                "1a7385a429d156bf",
+                "9bb6f13900f94446"
+            ]
+        ]
+    },
+    {
+        "id": "1a7385a429d156bf",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "--",
+        "func": "msg.wiki = msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 120,
+        "wires": [
+            [
+                "90a74391c46f2ce7"
+            ]
+        ]
+    },
+    {
+        "id": "9bb6f13900f94446",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "Eco",
+        "func": "return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 60,
+        "wires": [
+            [
+                "1a074cf00fc302ce"
+            ]
+        ]
+    },
+    {
+        "id": "68119736ca84e536",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "[",
+        "func": "var modelo = msg.wiki.guion || [];\nvar payload = modelo\n        .map((e, i) => {return {e}});\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "71745e3a89bea199"
+            ]
+        ]
+    },
+    {
+        "id": "71745e3a89bea199",
+        "type": "ui_table",
+        "z": "eaf05303a4bedcb4",
+        "group": "b2dde490c8706fc2",
+        "name": "Partida",
+        "order": 6,
+        "width": "6",
+        "height": "13",
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 600,
+        "y": 520,
+        "wires": [
+            [
+                "87e91bc4a54808d5"
+            ]
+        ]
+    },
+    {
+        "id": "04586cd07d640c76",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "[",
+        "func": "var modelo = msg.wiki.turno || [];\nvar payload = modelo\n        .map((e, i) => {return {e}});\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 480,
+        "wires": [
+            [
+                "ae516397de591b2c"
+            ]
+        ]
+    },
+    {
+        "id": "ae516397de591b2c",
+        "type": "ui_table",
+        "z": "eaf05303a4bedcb4",
+        "group": "75561547e129ef16",
+        "name": "Turno",
+        "order": 7,
+        "width": "6",
+        "height": "15",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 590,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "786c1bd762091f92",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "Actual",
+        "func": "var payload = (msg.wiki.actual_info);\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 260,
+        "wires": [
+            [
+                "ee5987e72dbb575a",
+                "ae1150a29281682b"
+            ]
+        ]
+    },
+    {
+        "id": "ee5987e72dbb575a",
+        "type": "ui_template",
+        "z": "eaf05303a4bedcb4",
+        "group": "9dbb6ba740014442",
+        "name": "Actual",
+        "order": 1,
+        "width": "12",
+        "height": "8",
+        "format": "<h3 ng-bind-html=\"msg.payload.text\"></h3>\n<div ng-bind-html=\"msg.payload.data.summary.extract_html\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1170,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53bb91c5f7339ade",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "CANDIDATO",
+        "func": "msg.wiki = flow.get(\"wiki\");\nmsg.wiki.actual = msg.payload.description;\nmsg.wiki.actual_title = msg.payload.id;\n\n\nmsg.payload = {};\nmsg.payload.text = \"Cargando\";\nmsg.payload.data = {};\nmsg.payload.data.html = \"Cargando\";\nmsg.payload.data.summary = {};\nmsg.payload.data.summary.extract_html = \"\"\nmsg.wiki.actual_info = msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "786c1bd762091f92",
+                "1a15487bb275f39b",
+                "90a74391c46f2ce7"
+            ]
+        ]
+    },
+    {
+        "id": "13ead93121f53caa",
+        "type": "ui_table",
+        "z": "eaf05303a4bedcb4",
+        "group": "9dbb6ba740014442",
+        "name": "Candidatos",
+        "order": 2,
+        "width": "12",
+        "height": "19",
+        "columns": [
+            {
+                "field": "ocurrences",
+                "title": "Veces",
+                "width": "50",
+                "align": "right",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "title",
+                "title": "Candidato",
+                "width": "",
+                "align": "left",
+                "formatter": "html",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 1,
+        "cts": true,
+        "x": 650,
+        "y": 260,
+        "wires": [
+            [
+                "53bb91c5f7339ade"
+            ]
+        ]
+    },
+    {
+        "id": "2286610c48c45df6",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "CANDIDATOS",
+        "func": "var camino = msg.wiki.camino_info;\nvar candidatos = camino?.candidatos?.internos || [];\n\nflow.set(\"wiki\", msg.wiki);\n\nconst payload = candidatos.map(o => { return {\n        description: o.id,\n        title: o.text,\n        ocurrences: o.ocurrencias,\n        id: o.text,\n}});\n\nflow.set(\"LAST_CANDIDATOS_TABLA\", payload);\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 320,
+        "wires": [
+            [
+                "13ead93121f53caa"
+            ]
+        ]
+    },
+    {
+        "id": "87e91bc4a54808d5",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "][",
+        "func": "msg.wiki = flow.get(\"wiki\");\n\nconst indice = msg.payload.e.split(\":\")[0].replace(\"- \", \"\");\nmsg.wiki.restaurar = indice;\n\nflow.set(\"wiki\", msg.wiki);\n\nmsg.payload = {\n    restaurar: indice,\n    enlace: msg.payload.e.split(\":\")[1].replace(\"- \", \"\")\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 520,
+        "wires": [
+            [
+                "6c96f35eeeb0fd6b",
+                "64798d77edfb0cde"
+            ]
+        ]
+    },
+    {
+        "id": "6c96f35eeeb0fd6b",
+        "type": "ui_form",
+        "z": "eaf05303a4bedcb4",
+        "name": "Vuelta atrás a...",
+        "label": "Vuelta atrás a...",
+        "group": "b2dde490c8706fc2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "enlace",
+                "value": "enlace",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "i",
+                "value": "restaurar",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "enlace": "",
+            "restaurar": ""
+        },
+        "payload": "",
+        "submit": "Restaurar",
+        "cancel": "Cancelar",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 880,
+        "y": 520,
+        "wires": [
+            [
+                "6d6d90c9713c0cee"
+            ]
+        ]
+    },
+    {
+        "id": "6d6d90c9713c0cee",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "]",
+        "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.restaurar = msg.payload.restaurar;\nmsg.wiki.restaurar_commit = true;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 520,
+        "wires": [
+            [
+                "64798d77edfb0cde"
+            ]
+        ]
+    },
+    {
+        "id": "ae1150a29281682b",
+        "type": "ui_template",
+        "z": "eaf05303a4bedcb4",
+        "group": "aad5a613de267b5b",
+        "name": "Detalles",
+        "order": 1,
+        "width": "12",
+        "height": "17",
+        "format": "<div ng-bind-html=\"msg.payload.data.html\"></div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1180,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b5878b77960d697",
+        "type": "ui_gauge",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "group": "b2dde490c8706fc2",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Camino",
+        "label": "enlaces",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "15",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b76910ad1c1bb651",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "[",
+        "func": "return {\n    payload: msg.wiki.camino.length\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 400,
+        "wires": [
+            [
+                "8b5878b77960d697"
+            ]
+        ]
+    },
+    {
+        "id": "1a15487bb275f39b",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "VACIAR",
+        "func": "return {\n    payload: []\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 260,
+        "wires": [
+            [
+                "13ead93121f53caa"
+            ]
+        ]
+    },
+    {
+        "id": "4bc2f060f96d2bbd",
+        "type": "ui_button",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "group": "75561547e129ef16",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Guardar Juego",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 920,
+        "y": 360,
+        "wires": [
+            [
+                "36335ab80dd67751"
+            ]
+        ]
+    },
+    {
+        "id": "8a540e157bb3bf71",
+        "type": "ui_table",
+        "z": "eaf05303a4bedcb4",
+        "group": "75561547e129ef16",
+        "name": "Juegos",
+        "order": 2,
+        "width": "6",
+        "height": "3",
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 600,
+        "y": 440,
+        "wires": [
+            [
+                "9f091ca5bbf1a5bd"
+            ]
+        ]
+    },
+    {
+        "id": "3e47fcd26c67f505",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "[",
+        "func": "var modelo = msg.wiki.juegos || [];\nvar payload = modelo\n        .map((e, i) => {return {e: e.clave}});\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 440,
+        "wires": [
+            [
+                "8a540e157bb3bf71"
+            ]
+        ]
+    },
+    {
+        "id": "36335ab80dd67751",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "GUARDAR",
+        "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.guardar = true;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 360,
+        "wires": [
+            [
+                "b052ea7f3b135204"
+            ]
+        ]
+    },
+    {
+        "id": "9f091ca5bbf1a5bd",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "]",
+        "func": "return {\n    payload: {\n        cargar_juego: msg.payload.e,\n        borrar_juego: msg.payload.e\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 440,
+        "wires": [
+            [
+                "1804640cf0714cda",
+                "b880f82df6324365"
+            ]
+        ]
+    },
+    {
+        "id": "1804640cf0714cda",
+        "type": "ui_form",
+        "z": "eaf05303a4bedcb4",
+        "name": "Cargar juego",
+        "label": "",
+        "group": "75561547e129ef16",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Cargar",
+                "value": "cargar_juego",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "cargar_juego": ""
+        },
+        "payload": "",
+        "submit": "Carga",
+        "cancel": "--",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 910,
+        "y": 420,
+        "wires": [
+            [
+                "cf2a630459404795"
+            ]
+        ]
+    },
+    {
+        "id": "cf2a630459404795",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "END",
+        "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.cargar_juego = msg.payload.cargar_juego;\nmsg.wiki.borrar_juego = msg.payload.borrar_juego;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 440,
+        "wires": [
+            [
+                "b052ea7f3b135204"
+            ]
+        ]
+    },
+    {
+        "id": "b880f82df6324365",
+        "type": "ui_form",
+        "z": "eaf05303a4bedcb4",
+        "name": "Borrar juego",
+        "label": "",
+        "group": "75561547e129ef16",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Borrar",
+                "value": "borrar_juego",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "borrar_juego": ""
+        },
+        "payload": "",
+        "submit": "Borra",
+        "cancel": "--",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 910,
+        "y": 460,
+        "wires": [
+            [
+                "cf2a630459404795"
+            ]
+        ]
+    },
+    {
+        "id": "6faeddd8239cc8a1",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "CONFIGURAR",
+        "func": "msg.payload = {\n    ...msg.wiki,\n    \"inicio\": msg.wiki.inicio.replace(msg.wiki.base, \"\"),\n    \"final\": msg.wiki.final.replace(msg.wiki.base, \"\"),\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "15e04fa04a8d5079"
+            ]
+        ]
+    },
+    {
+        "id": "90a74391c46f2ce7",
+        "type": "link out",
+        "z": "eaf05303a4bedcb4",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "72aa6e95d0f2bf37",
+            "508c82474e033f50",
+            "b14576e42c0cc553"
+        ],
+        "x": 815,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "72aa6e95d0f2bf37",
+        "type": "link in",
+        "z": "eaf05303a4bedcb4",
+        "name": "link in 1",
+        "links": [
+            "90a74391c46f2ce7",
+            "b052ea7f3b135204",
+            "1134c2739ecaf947",
+            "64798d77edfb0cde",
+            "a8f0a127f4a0600b"
+        ],
+        "x": 115,
+        "y": 480,
+        "wires": [
+            [
+                "f4028dc7e6195d21",
+                "02df6c11272019fe"
+            ]
+        ]
+    },
+    {
+        "id": "b052ea7f3b135204",
+        "type": "link out",
+        "z": "eaf05303a4bedcb4",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "72aa6e95d0f2bf37",
+            "508c82474e033f50",
+            "b14576e42c0cc553"
+        ],
+        "x": 1215,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "1134c2739ecaf947",
+        "type": "link out",
+        "z": "eaf05303a4bedcb4",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "72aa6e95d0f2bf37",
+            "508c82474e033f50",
+            "b14576e42c0cc553"
+        ],
+        "x": 275,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "64798d77edfb0cde",
+        "type": "link out",
+        "z": "eaf05303a4bedcb4",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "72aa6e95d0f2bf37",
+            "508c82474e033f50",
+            "b14576e42c0cc553"
+        ],
+        "x": 1125,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "21e5719249bbc3e9",
+        "type": "link in",
+        "z": "eaf05303a4bedcb4",
+        "name": "link in 2",
+        "links": [
+            "15e04fa04a8d5079"
+        ],
+        "x": 375,
+        "y": 160,
+        "wires": [
+            [
+                "1a074cf00fc302ce"
+            ]
+        ]
+    },
+    {
+        "id": "15e04fa04a8d5079",
+        "type": "link out",
+        "z": "eaf05303a4bedcb4",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "21e5719249bbc3e9"
+        ],
+        "x": 605,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "02df6c11272019fe",
+        "type": "debug",
+        "z": "eaf05303a4bedcb4",
+        "name": "TO_WIKI",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "wiki",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b9117df94767d2f4",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "--",
+        "func": "msg.wiki = msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "1134c2739ecaf947"
+            ]
+        ]
+    },
+    {
+        "id": "75561547e129ef16",
+        "type": "ui_group",
+        "name": "Configuración",
+        "tab": "e260e9f9eb787f79",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "b2dde490c8706fc2",
+        "type": "ui_group",
+        "name": "Partida",
+        "tab": "e260e9f9eb787f79",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9dbb6ba740014442",
+        "type": "ui_group",
+        "name": "Turno actual",
+        "tab": "e260e9f9eb787f79",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aad5a613de267b5b",
+        "type": "ui_group",
+        "name": "Detalles",
+        "tab": "e260e9f9eb787f79",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "e260e9f9eb787f79",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

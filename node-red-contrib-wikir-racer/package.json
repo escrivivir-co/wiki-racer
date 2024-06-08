@@ -1,0 +1,30 @@
+{
+  "name": "node-red-contrib-wiki-racer",
+  "version": "1.2.0",
+  "description": "",
+  "scripts": {
+    "test": "mocha \"test/**/*_spec.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/escrivivir-co/wiki-racer.git"
+  },
+  "keywords": [
+    "node-red",
+    "Simulation",
+    "FIA",
+    "IA",
+    "AlephScript"
+  ],
+  "author": "j",
+  "license": "MIT",
+  "node-red": {
+    "nodes": {
+      "game": "game.js"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "node-red": "^2.1.5"
+  }
+}

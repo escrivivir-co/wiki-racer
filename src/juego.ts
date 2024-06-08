@@ -13,7 +13,7 @@ export const JUEGO: Msg = {
     inicio: "",
     actual: "",
     final: "",
-
+    final_invalido: false,
     camino: [],
     guion: [],
     turno: [],
@@ -51,7 +51,7 @@ export class Juego {
         this.validar(this.msg);
     }
 
-    validar(msg: Msg): boolean {
+    async validar(msg: Msg): Promise<boolean> {
 
         const errores: LineaGuion[] = [];
 
@@ -68,6 +68,17 @@ export class Juego {
         msg.inicio = (msg.inicio.indexOf(msg.base) == -1 ? msg.base : '') + msg.inicio;
         msg.final = (msg.final.indexOf(msg.base) == -1 ? msg.base : '') + msg.final;
 
+        if (!this.rc) {
+            this.rc = new RTCache();
+            this.rc.ruta = msg.disco;
+            this.rc.archivo = "tree.json";
+            this.rc.recuperar();
+        }
+
+        const final = await this.getFromCacheOrQuery(msg, "final");
+        console.log("RT JUEGO", "Validado final", final?.headers[0]?.text || "No encontrado");
+        msg.final_invalido = final?.headers[0]?.text ? false : true;
+
         msg.disco = msg.disco || JUEGO.disco;
 
         msg.camino = msg.camino || [];
@@ -77,13 +88,6 @@ export class Juego {
         msg.turno = msg.turno.concat(errores);
 
         msg.restaurar = (msg.restaurar > -1) ? msg.restaurar : -1;
-
-        if (!this.rc) {
-            this.rc = new RTCache();
-            this.rc.ruta = msg.disco;
-            this.rc.archivo = "tree.json";
-            this.rc.recuperar();
-        }
 
         msg.juegos = msg.juegos || this.rc.leer("juegos") || [];
 
@@ -174,7 +178,7 @@ export class Juego {
             return msg;
         }
 
-        if (!this.validar(msg)) {
+        if (!(await this.validar(msg))) {
 
             msg.estado = {
                 Etapa: Etapa.Esperando,
@@ -343,18 +347,19 @@ export class Juego {
 
     }
 
-    async getFromCacheOrQuery(msg: Msg): Promise<EntradaEstructura> {
+    async getFromCacheOrQuery(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
 
+        const target = msg[key]
         msg.turno.push(this.T.LEYENDO_OBJETIVO);
 
-        let candidato = this.rc.leer(msg.actual) as unknown as EntradaEstructura;
+        let candidato = this.rc.leer(target) as unknown as EntradaEstructura;
 
         if (!candidato) {
 
             msg.turno.push(this.T.LEYENDO_OBJETIVO_SCRAP);
 
-            candidato = await this.leer(msg);
-            this.rc.guardar(msg.actual, candidato);
+            candidato = await this.leer(msg, key);
+            this.rc.guardar(target, candidato);
             this.rc.persistir();
         }
 
@@ -362,9 +367,10 @@ export class Juego {
 
     }
 
-    async leer(msg: Msg): Promise<EntradaEstructura> {
+    async leer(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
 
-        return await this.scraper.extraerEnlaces(msg.actual, msg.actual_title);
+        const target = msg[key]
+        return await this.scraper.extraerEnlaces(target, msg.actual_title);
 
     }
 

@@ -23,7 +23,8 @@
                 "2286610c48c45df6",
                 "b76910ad1c1bb651",
                 "3e47fcd26c67f505",
-                "6faeddd8239cc8a1"
+                "6faeddd8239cc8a1",
+                "40ae8a79bf67ccc3"
             ]
         ]
     },
@@ -551,7 +552,7 @@
         "z": "eaf05303a4bedcb4",
         "name": "",
         "group": "75561547e129ef16",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -579,7 +580,7 @@
         "z": "eaf05303a4bedcb4",
         "group": "75561547e129ef16",
         "name": "Juegos",
-        "order": 7,
+        "order": 8,
         "width": "6",
         "height": "14",
         "columns": [],
@@ -661,7 +662,7 @@
         "name": "Cargar juego",
         "label": "",
         "group": "75561547e129ef16",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "options": [
@@ -718,7 +719,7 @@
         "name": "Borrar juego",
         "label": "",
         "group": "75561547e129ef16",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "options": [
@@ -883,7 +884,7 @@
         "type": "debug",
         "z": "eaf05303a4bedcb4",
         "name": "TO_WIKI",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -941,7 +942,7 @@
         "type": "debug",
         "z": "eaf05303a4bedcb4",
         "name": "debug 1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -998,6 +999,128 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "da29bf36664f3866",
+        "type": "ui_template",
+        "z": "eaf05303a4bedcb4",
+        "group": "75561547e129ef16",
+        "name": "FINAL INVÁLIDO",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"color:red\" ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 570,
+        "y": 720,
+        "wires": [
+            [
+                "8482cb9b59b882f8"
+            ]
+        ]
+    },
+    {
+        "id": "40ae8a79bf67ccc3",
+        "type": "switch",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "property": "wiki.final_invalido",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 720,
+        "wires": [
+            [
+                "7d742d67f69d6fde"
+            ],
+            [
+                "5f880d97f32e83d0"
+            ]
+        ]
+    },
+    {
+        "id": "7d742d67f69d6fde",
+        "type": "change",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "FINAL INVÁLIDO",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 700,
+        "wires": [
+            [
+                "da29bf36664f3866"
+            ]
+        ]
+    },
+    {
+        "id": "5f880d97f32e83d0",
+        "type": "change",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 740,
+        "wires": [
+            [
+                "da29bf36664f3866"
+            ]
+        ]
+    },
+    {
+        "id": "8482cb9b59b882f8",
+        "type": "debug",
+        "z": "eaf05303a4bedcb4",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 720,
+        "wires": []
     },
     {
         "id": "75561547e129ef16",

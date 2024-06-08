@@ -53,6 +53,15 @@ export class Engine {
 
             });
 
+            // Cambiar el título por si se viene de enlaces con href invalido con títulos inválidos
+            const spanValue = await page.evaluate(() => {
+                // Replace 'your-class-name' with the actual class name of the span
+                const span = document.querySelector('.mw-page-title-main');
+                return span ? span.textContent : null;
+              });
+            title = spanValue || title;
+
+            console.log("RT ENGINE", "Se ha extraído el título: [", spanValue, "]")
             const headers = await this.searchWikipedia(title, url);
 
             // Cierra el navegador
@@ -84,7 +93,7 @@ export class Engine {
             const newUrl = wiki.setLang('es');
             console.log("RT ENGINE", "Llamada remota con ruta (info)", keyword, url);
 
-            let search = (await wiki.page(keyword));
+            let search = (await wiki.page(keyword, { autoSuggest: false }));
             // console.log("RT ENGINE", "Search", search);
 
             let page = search;

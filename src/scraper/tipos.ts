@@ -24,6 +24,7 @@ export interface Msg {
     inicio: Enlace;
     actual: Enlace;
     final: Enlace;
+    final_invalido: boolean;
 
     camino: Camino[];
 

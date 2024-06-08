@@ -313,7 +313,7 @@
         "z": "eaf05303a4bedcb4",
         "group": "9dbb6ba740014442",
         "name": "Candidatos",
-        "order": 2,
+        "order": 3,
         "width": "12",
         "height": "19",
         "columns": [
@@ -364,7 +364,8 @@
         "y": 320,
         "wires": [
             [
-                "13ead93121f53caa"
+                "13ead93121f53caa",
+                "2042d8d852eca303"
             ]
         ]
     },
@@ -463,7 +464,7 @@
         "order": 1,
         "width": "12",
         "height": "17",
-        "format": "<div ng-bind-html=\"msg.payload.data.html\"></div>\n",
+        "format": "\n\n<div ng-bind-html=\"msg.payload.data.html\" style=\"\"></div>\n\n\n",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -539,7 +540,8 @@
         "y": 260,
         "wires": [
             [
-                "13ead93121f53caa"
+                "13ead93121f53caa",
+                "c9a6e09ba18ef04b"
             ]
         ]
     },
@@ -914,6 +916,90 @@
         ]
     },
     {
+        "id": "63311567f131ead1",
+        "type": "function",
+        "z": "eaf05303a4bedcb4",
+        "name": "FILTRAR",
+        "func": "var todos = flow.get(\"LAST_CANDIDATOS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.indexOf(match) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "13ead93121f53caa",
+                "2042d8d852eca303"
+            ]
+        ]
+    },
+    {
+        "id": "2042d8d852eca303",
+        "type": "debug",
+        "z": "eaf05303a4bedcb4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c9a6e09ba18ef04b",
+        "type": "ui_text_input",
+        "z": "eaf05303a4bedcb4",
+        "name": "",
+        "label": "Filtrar",
+        "tooltip": "",
+        "group": "9dbb6ba740014442",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": false,
+        "className": "",
+        "topicType": "msg",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "63311567f131ead1"
+            ]
+        ]
+    },
+    {
+        "id": "588f8791269fc069",
+        "type": "ui_template",
+        "z": "eaf05303a4bedcb4",
+        "group": "aad5a613de267b5b",
+        "name": "CSS",
+        "order": 1,
+        "width": "12",
+        "height": "17",
+        "format": "<style>\na:link {\n  color: #22FF81;\n  background-color: transparent;\n  text-decoration: none;\n}\n\na:visited {\n  color: #43FF4D;\n  background-color: transparent;\n  text-decoration: none;\n}\n\na:hover {\n  color: green;\n  background-color: transparent;\n  text-decoration: underline;\n}\n\na:active {\n  color: #28FF14;\n  background-color: transparent;\n  text-decoration: underline;\n}\n</style>\n\n<div ng-bind-html=\"msg.payload.data.html\" style=\"\"></div>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1030,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "75561547e129ef16",
         "type": "ui_group",
         "name": "Configuración",
@@ -932,7 +1018,7 @@
         "order": 1,
         "disp": true,
         "width": "6",
-        "collapse": false,
+        "collapse": true,
         "className": ""
     },
     {
@@ -960,7 +1046,7 @@
     {
         "id": "e260e9f9eb787f79",
         "type": "ui_tab",
-        "name": "Home",
+        "name": "Wiki Racer Dashboard",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false

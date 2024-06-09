@@ -205,7 +205,8 @@
         "y": 520,
         "wires": [
             [
-                "87e91bc4a54808d5"
+                "87e91bc4a54808d5",
+                "2042d8d852eca303"
             ]
         ]
     },
@@ -386,6 +387,7 @@
         "y": 520,
         "wires": [
             [
+                "7cc92742039e0c3f",
                 "64798d77edfb0cde"
             ]
         ]
@@ -455,7 +457,7 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 600,
+        "x": 620,
         "y": 400,
         "wires": []
     },
@@ -831,7 +833,7 @@
         "links": [
             "21e5719249bbc3e9"
         ],
-        "x": 605,
+        "x": 635,
         "y": 360,
         "wires": []
     },
@@ -1506,8 +1508,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 160,
-        "y": 380,
+        "x": 180,
+        "y": 340,
         "wires": []
     },
     {
@@ -1528,6 +1530,51 @@
             [
                 "786c1bd762091f92",
                 "ae516397de591b2c"
+            ]
+        ]
+    },
+    {
+        "id": "7cc92742039e0c3f",
+        "type": "ui_form",
+        "z": "eaf05303a4bedcb4",
+        "name": "Vuelta atrás a...",
+        "label": "Vuelta atrás a...",
+        "group": "b2dde490c8706fc2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "enlace",
+                "value": "enlace",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "i",
+                "value": "restaurar",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "enlace": "",
+            "restaurar": ""
+        },
+        "payload": "",
+        "submit": "Restaurar",
+        "cancel": "Cancelar",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 880,
+        "y": 520,
+        "wires": [
+            [
+                "64798d77edfb0cde"
             ]
         ]
     },

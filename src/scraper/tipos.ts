@@ -46,4 +46,7 @@ export interface Msg {
     borrar_juego: string;
 
     juegos: Msg[];
+
+    pista: string;
+    pista_info: EntradaEstructura;
 }

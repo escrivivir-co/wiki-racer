@@ -13,14 +13,16 @@ export const ES = {
 
     ESCOGER: "¡Debes escoger un candidato!",
 
-    CANDIDATO_ESCOGIDO: "Candidato: %1. Deberás volver a escoger entre estas opciones: (%2)/(%3).",
+    CANDIDATO_ESCOGIDO: "Seleccionado: %1",
+
+    CANDIDATO_ESCOGIDO_EXT: "Enlaces disponibles: %1",
 
     NO_SE_PUEDE_SEGUIR: "El anterior actual no es válido, el juego no puede continuar",
 
     ESPERANDO_AL_JUGADOR: "Esperando al jugador...",
 
-    LEYENDO_OBJETIVO: "Leyendo el objetivo",
+    LEYENDO_OBJETIVO: "Caché %1",
 
-    LEYENDO_OBJETIVO_SCRAP: "Leyendo el objetivo, salida a red..."
+    LEYENDO_OBJETIVO_SCRAP: "Salida a red..."
 
 }

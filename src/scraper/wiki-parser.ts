@@ -31,6 +31,10 @@ export const WIKIMETA_WORDS_END = [
 
 export class WikiParser {
 
+    constructor(public ALMACENAR_DESCARTADOS: boolean) {
+
+    }
+
     base = "https://es.wikipedia.org/wiki";
 
     parsear(enlaces: EntradaElemento[]): EntradaEstructura {
@@ -38,7 +42,9 @@ export class WikiParser {
         console.log("WIKI PARSE", "Separando enlaces, cantidad:", enlaces.length);
 
         const hasRescrictedWord = (text: string, list: string[]) => {
-            return list.filter(c => text.indexOf(c) > -1).length > 0
+            return list.filter(c => 
+                text.indexOf(c) > -1
+            ).length > 0
         }
 
         const sort = (a, b) =>  a.text < b.text ? -1 : 1;
@@ -67,11 +73,11 @@ export class WikiParser {
                     !hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) &&
                     !hasRescrictedWord(c.id, WIKIMETA_WORDS_ID)
                 ).sort((a, b) => sort(a, b)).reduce(reduce, []),
-            descartados: enlaces.filter(c => c.id.indexOf(base) > -1)
+            descartados: this.ALMACENAR_DESCARTADOS ? enlaces.filter(c => c.id.indexOf(base) > -1)
                 .filter(c =>
                     hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) ||
                     hasRescrictedWord(c.id, WIKIMETA_WORDS_ID)
-                ).sort((a, b) => sort(a, b)).reduce(reduce, []),
+                ).sort((a, b) => sort(a, b)).reduce(reduce, []) : [],
             externos: enlaces.filter(c => c.id.indexOf(base) == -1)
                 .filter(c =>
                     !hasRescrictedWord(c.text, WIKIMETA_WORDS_TEXT) &&

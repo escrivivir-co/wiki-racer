@@ -24,6 +24,61 @@ export interface EntradaElemento {
 
 export class Engine {
 
+    ALMACENAR_DESCARTADOS = false;  // Nota: consume mucho storage. Usar solo para debuguear.
+
+    constructor(public base: string) {
+
+    }
+
+    // Método asincrónico para extraer enlaces de una URL dada
+    async extraerReverseEnlaces(url: string, title: string): Promise<EntradaEstructura> {
+
+        try {
+            const newUrl = url.replace(this.base, "");
+            const sUrl = this.base.replace("/wiki/", "/w/") + "index.php?limit=500&title=Especial:LoQueEnlazaAquí/" + newUrl;
+            console.log("RT ENGINE:", "RE: Llamada remota con ruta (enlaces)", sUrl);
+            // Inicia Puppeteer
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu'
+                ]
+            });
+            const page = await browser.newPage();
+
+            // Navega a la URL
+            await page.goto(sUrl);
+
+            const enlaces = await page.evaluate(() => {
+
+                const anchors = Array.from(document.querySelectorAll('a'));
+                return anchors
+                    .map(anchor => { return { id: anchor.href, text: anchor.innerHTML}});
+
+            });
+
+            // Cierra el navegador
+            await browser.close();
+
+            const anchors = new WikiParser(this.ALMACENAR_DESCARTADOS).parsear(enlaces);
+
+            return {
+                ...anchors
+            }
+        } catch(ex) {
+            console.log("RT ENGINE", "RE: Error llamada remota", ex.message, "url:", url);
+            return {
+                externos: [],
+                internos: [],
+                headers: [],
+                descartados: []
+            }
+        }
+    }
+
     // Método asincrónico para extraer enlaces de una URL dada
     async extraerEnlaces(url: string, title: string): Promise<EntradaEstructura> {
 
@@ -61,13 +116,14 @@ export class Engine {
               });
             title = spanValue || title;
 
+
             console.log("RT ENGINE", "Se ha extraído el título: [", spanValue, "]")
             const headers = await this.searchWikipedia(title, url);
 
             // Cierra el navegador
             await browser.close();
 
-            const anchors = new WikiParser().parsear(enlaces);
+            const anchors = new WikiParser(this.ALMACENAR_DESCARTADOS).parsear(enlaces);
 
             return {
                 ...anchors,

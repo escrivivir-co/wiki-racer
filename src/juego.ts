@@ -34,8 +34,11 @@ export const JUEGO: Msg = {
 
     juegos: [],
     cargar_juego: "",
-    borrar_juego: ""
- 
+    borrar_juego: "",
+
+    pista: "",
+    pista_info: null
+
 }
 
 export class Juego {
@@ -43,7 +46,7 @@ export class Juego {
     T = ES;
 
     rc: RTCache;
-    scraper = new Engine();
+    scraper;
 
     msg = {... JUEGO};
 
@@ -67,6 +70,10 @@ export class Juego {
 
         msg.inicio = (msg.inicio.indexOf(msg.base) == -1 ? msg.base : '') + msg.inicio;
         msg.final = (msg.final.indexOf(msg.base) == -1 ? msg.base : '') + msg.final;
+
+        if (!this.scraper) {
+            this.scraper = new Engine(msg.base);
+        }
 
         if (!this.rc) {
             this.rc = new RTCache();
@@ -190,6 +197,12 @@ export class Juego {
 
         }
 
+        if (msg.pista) {
+            const storage = this.rc.leer("reverse") || {};
+            msg.pista_info = (storage[msg.pista]) as unknown as EntradaEstructura || null;
+            msg.actual = msg.pista;
+        }
+
         // Primer turno
         if (msg.camino.length == 0) {
             msg.actual = msg.inicio;
@@ -200,7 +213,10 @@ export class Juego {
             actual.candidato = seleccion;
 
             const texto = actual.candidatos.internos.find(c => c.id == seleccion)?.text || "--";
-            msg.guion.push(this.T.NUEVO_TURNO.replace("%0", msg.camino.length + "").replace("%1", texto));
+
+            if (texto != "--") {
+                msg.guion.push(this.T.NUEVO_TURNO.replace("%0", msg.camino.length + "").replace("%1", texto));
+            }
 
             // Sucesivos turnos, el usuario ha elegido
             if (actual.candidato) {
@@ -263,12 +279,15 @@ export class Juego {
                 const texto = candidato.headers[0].text;
                 msg.guion.push(this.T.NUEVO_TURNO.replace("%0", msg.camino.length + "").replace("%1", texto));
             }
+
             msg.camino.push(camino);
 
             if (msg.actual == msg.final) {
-                msg.turno.push(this.T.FIN_JUEGO_EXITO);
 
-                msg.guion.push(this.T.FIN_JUEGO);
+                if (!msg.pista) {
+                    msg.turno.push(this.T.FIN_JUEGO_EXITO);
+                    msg.guion.push(this.T.FIN_JUEGO);
+                }
 
                 msg.estado = {
                     Etapa: Etapa.Acabado,
@@ -285,22 +304,30 @@ export class Juego {
             } else {
 
                 const turno = this.T.CANDIDATO_ESCOGIDO
-                .replace("%1", msg.actual)
-                .replace("%2", candidato.internos.length + "")
-                .replace("%3", candidato.externos.length + "");
-
+                .replace("%1", msg.actual.replace(msg.base, ""));
                 msg.turno.push(turno);
-                msg.turno.push(this.T.ESPERANDO_AL_JUGADOR);
 
-                msg.estado = {
-                    Etapa: Etapa.Esperando,
-                    Error: Error.SinDatos
-                };
+                if (!msg.pista) {
+                    const turnoEXT = this.T.CANDIDATO_ESCOGIDO_EXT
+                    .replace("%1", candidato.internos.length + "");
+
+                    msg.turno.push(turnoEXT);
+                    msg.turno.push(this.T.ESPERANDO_AL_JUGADOR);
+
+                    msg.estado = {
+                        Etapa: Etapa.Esperando,
+                        Error: Error.SinDatos
+                    };
+                }
 
                 msg.camino_info = this.ultimoCamino(msg);
             }
 
             msg.actual_info = this.ultimoActual(msg);
+
+            if (msg.pista) {
+                msg.camino.pop(); // Elimina el último porque es temporal solo para consultas
+            }
 
             // SALIDA: EL JUGADOR DEBE ESCOGER CANDIDATO
             // SALIDA: ACABAEL JUEGO, SE HA LLEGADO AL OBJETIVO FINAL
@@ -350,17 +377,24 @@ export class Juego {
     async getFromCacheOrQuery(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
 
         const target = msg[key]
-        msg.turno.push(this.T.LEYENDO_OBJETIVO);
+        msg.turno.push(this.T.LEYENDO_OBJETIVO.replace("%1", target.replace(msg.base, "")));
 
-        let candidato = this.rc.leer(target) as unknown as EntradaEstructura;
+        const storage = this.rc.leer("archivo") || {};
+        let candidato = storage[target] as unknown as EntradaEstructura;
 
         if (!candidato) {
 
             msg.turno.push(this.T.LEYENDO_OBJETIVO_SCRAP);
 
             candidato = await this.leer(msg, key);
-            this.rc.guardar(target, candidato);
-            this.rc.persistir();
+
+            if (candidato &&
+                candidato.headers?.length > 0
+            ) {
+                storage[target] = candidato;
+                this.rc.guardar("archivo", storage);
+                this.rc.persistir();
+            }
         }
 
         return candidato;
@@ -370,6 +404,13 @@ export class Juego {
     async leer(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
 
         const target = msg[key]
+
+        const solucion = await this.scraper.extraerReverseEnlaces(target);
+        const storage = this.rc.leer("reverse") || {};
+        storage[target] = solucion;
+        this.rc.guardar("reverse", storage);
+        this.rc.persistir();
+
         return await this.scraper.extraerEnlaces(target, msg.actual_title);
 
     }

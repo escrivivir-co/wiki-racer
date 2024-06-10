@@ -22,6 +22,7 @@ export const WIKIMETA_WORDS_ID = [
     "Special:",
     "petscan.wmflabs.org",
     "tools.wmflabs.org",
+    "&action=edit",
     "Categor%C3%ADa:"
 ]
 

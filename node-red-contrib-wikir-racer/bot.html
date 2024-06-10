@@ -1,0 +1,113 @@
+<!-- node-red-contrib-alephscript v1.0.0
+Creative Comons 2024 "j"
+
+MIT License (http://www.opensource.org/licenses/mit-license.php)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
+
+<script type="text/javascript">
+    var worlds;
+    RED.nodes.registerType('bot',{
+        category: 'Wiki Racer',
+        color: '#baaff9',
+        defaults: {
+            name: {value:""},
+            world: {value: ""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "node-red/watch.svg",
+        label: function() {
+            return this.name || "bot";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+            var worldSelect = $("#node-input-world");
+            worldSelect.empty();
+
+            // Get the list of World nodes
+            RED.nodes.eachNode(function(node) {
+                if (node.type === "world") {
+                    worldSelect.append($("<option></option>").attr("value", node.id).text(node.name || node.id));
+                }
+            });
+
+            // Set the previously selected value
+            if (this.world) {
+                worldSelect.val(this.world);
+            }
+        },
+        oneditsave: function() {
+
+            // var node = this;
+            // var worldSelect = $("#node-input-world");
+
+        }
+
+    });
+</script>
+
+<script type="text/html" data-template-name="bot">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-world"><i class="fa fa-globe"></i> World</label>
+        <select id="node-input-world"></select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="bot">
+        <p>Representa un juego de Wiki-Racer.</p>
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>msg.payload
+                <span class="property-type">object</span>
+            </dt>
+            <dd> De tipo mensaje de juego. Ver especificación interfaz Msg. </dd>
+            <dt>msg.req
+                <span class="property-type">object</span>
+            </dt>
+            <dd>a HTTP request object received by a <code>HTTP in</code> node</dd>
+            <dt>msg.res
+                <span class="property-type">object</span>
+            </dt>
+            <dd>a HTTP response object from a <code>HTTP in</code> node</dd>
+        </dl>
+    
+        <h3>Outputs</h3>
+                <dl class="message-properties">
+                     <dt>flow.req  <span class="property-type">object</span></dt>
+                     <dd>a HTTP request object from a <code>HTTP in</code> node</dd>
+                     <dt>flow.res  <span class="property-type">object</span></dt>
+                     <dd>a HTTP response object from a <code>HTTP in</code> node</dd>
+                     <dt>flow.domain  <span class="property-type">object</span></dt>
+                     <dd>a domain object that comes with a AlephScript custom action request</dd>
+                     <dt>flow.tracker  <span class="property-type">object</span></dt>
+                     <dd>a tracker object that comes with a AlephScript custom action request  </dd>
+                     <dt>msg.responses  <span class="property-type">object</span></dt>
+                     <dd>an empty responses object that will be filled with AlephScript responses</dd>
+                     <dt>msg.events  <span class="property-type">object</span></dt>
+                     <dd>an empty events object that will be filled with AlephScript events</dd>
+                     <dt>msg.slots  <span class="property-type">object</span></dt>
+                     <dd>an array of slot settings sent as part of  the AlephScript custom action request</dd>
+                     <dt>msg.action  <span class="property-type">string</span></dt>
+                     <dd>the name of the action that AlephScript requests the action server to execute </dd>
+                 </dl>
+    
+    <h3>Details</h3>
+    <p>The node initializes JSON structures and stores JSON structures into  flow context. 
+        The counterpart <code>finish</code> will retreive them and assemble a valid HTTP response 
+        and response for AlephScript.
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://AlephScript.com/docs/action-server/http-api-spec">AlephScript Action Server HTTP API</a></li>
+            <li><a href="https://github.com/weberi/node-red-contrib-AlephScript-actionserver.git">GitHub</a> - the nodes github repository</li>
+        </ul>
+    </script>

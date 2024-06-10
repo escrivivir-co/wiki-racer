@@ -1,5 +1,6 @@
 import { Estado } from "../estado";
 import { EntradaElemento, EntradaEstructura } from "./engine";
+import { Busqueda } from '../bot';
 
 export type Enlace = string;
 
@@ -49,4 +50,8 @@ export interface Msg {
 
     pista: string;
     pista_info: EntradaEstructura;
+
+    busqueda: Busqueda;
+
+    query?: string;
 }

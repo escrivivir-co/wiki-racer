@@ -1,0 +1,16 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-as": "file:node-red-contrib-as",
+        "node-red-contrib-ast": "file:node-red-contrib-as",
+        "node-red-contrib-wiki-racer": "file:../Desktop/wiki-racer/node-red-contrib-wikir-racer",
+        "node-red-dashboard": "~3.6.5",
+        "node-red-node-ui-list": "~0.3.6",
+        "node-red-node-ui-table": "~0.4.3",
+        "openai": "^4.48.2",
+        "rxjs": "^7.8.1"
+    }
+}

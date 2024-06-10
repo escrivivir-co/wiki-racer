@@ -20,7 +20,8 @@
   "license": "MIT",
   "node-red": {
     "nodes": {
-      "game": "game.js"
+      "game": "game.js",
+      "bot": "bot.js"
     }
   },
   "dependencies": {},

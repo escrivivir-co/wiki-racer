@@ -1,6 +1,6 @@
+import { Core } from "./core";
 import { Etapa, Error } from "./estado";
-import { ES } from "./lang/es";
-import { Engine, EntradaEstructura, EntradaElemento } from './scraper/engine';
+import { Engine, EntradaEstructura} from './scraper/engine';
 import { Msg, LineaGuion, Camino } from "./scraper/tipos";
 import { RTCache } from "./utils/cache";
 
@@ -37,20 +37,16 @@ export const JUEGO: Msg = {
     borrar_juego: "",
 
     pista: "",
-    pista_info: null
+    pista_info: null,
+
+    busqueda: null
 
 }
 
-export class Juego {
-
-    T = ES;
-
-    rc: RTCache;
-    scraper;
-
-    msg = {... JUEGO};
+export class Juego extends Core {
 
     constructor() {
+        super();
         this.validar(this.msg);
     }
 
@@ -70,10 +66,6 @@ export class Juego {
 
         msg.inicio = (msg.inicio.indexOf(msg.base) == -1 ? msg.base : '') + msg.inicio;
         msg.final = (msg.final.indexOf(msg.base) == -1 ? msg.base : '') + msg.final;
-
-        if (!this.scraper) {
-            this.scraper = new Engine(msg.base);
-        }
 
         if (!this.rc) {
             this.rc = new RTCache();
@@ -371,47 +363,6 @@ export class Juego {
                 data: {}
             }
         }
-
-    }
-
-    async getFromCacheOrQuery(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
-
-        const target = msg[key]
-        msg.turno.push(this.T.LEYENDO_OBJETIVO.replace("%1", target.replace(msg.base, "")));
-
-        const storage = this.rc.leer("archivo") || {};
-        let candidato = storage[target] as unknown as EntradaEstructura;
-
-        if (!candidato) {
-
-            msg.turno.push(this.T.LEYENDO_OBJETIVO_SCRAP);
-
-            candidato = await this.leer(msg, key);
-
-            if (candidato &&
-                candidato.headers?.length > 0
-            ) {
-                storage[target] = candidato;
-                this.rc.guardar("archivo", storage);
-                this.rc.persistir();
-            }
-        }
-
-        return candidato;
-
-    }
-
-    async leer(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
-
-        const target = msg[key]
-
-        const solucion = await this.scraper.extraerReverseEnlaces(target);
-        const storage = this.rc.leer("reverse") || {};
-        storage[target] = solucion;
-        this.rc.guardar("reverse", storage);
-        this.rc.persistir();
-
-        return await this.scraper.extraerEnlaces(target, msg.actual_title);
 
     }
 

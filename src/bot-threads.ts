@@ -71,11 +71,24 @@ export class Bot extends Core {
 
         msg.busqueda.instrucciones = this.T.GPT.OBJETIVO;
 
-        if (!msg.busqueda.threads) {
+        if (msg.busqueda?.set_asistentes) {
+
+            const asistentes = msg.busqueda?.set_asistentes || [];
+            storage["asistentes"] = asistentes;
+            this.rc.guardar("gpt", storage);
+            this.rc.persistir();
+
+            console.log("RT BOT", "Store ASSISTANTS", msg.busqueda.set_asistentes, storage)
+            msg.busqueda.asistentes = asistentes;
+            msg.busqueda.set_asistentes = null;
+            return msg;
+        }
+
+        if (msg.busqueda?.thread) {
 
             msg.busqueda.threads = storage["threads"] || [];
-            msg.busqueda.threads.push({ thread_id: "thread-1", metadata: {}});
 
+            msg.busqueda.threads.push(msg.busqueda.thread_info);
             storage["threads"] = msg.busqueda.threads;
             this.rc.guardar("gpt", storage);
             this.rc.persistir();
@@ -95,6 +108,8 @@ export class Bot extends Core {
                     msg.busqueda.juegos = juegos;
                 }
             }
+
+            return msg;
         }
 
         if (msg.actual_info) {
@@ -109,14 +124,15 @@ export class Bot extends Core {
             if (juegoIndex > -1) {
                 juego = msg.busqueda.juegos[juegoIndex];
             } else {
-                const archivo = this.rc.leer("archivo") || {};
+
                 console.log("RT BOT", "Crea juego", msg.clave)
                 juego = {
                     thread_info: null,
                     clave: msg.clave,
-                    inicio: archivo[msg.inicio].headers[0].text,
-                    final: archivo[msg.final].headers[0].text,
-                    actual: msg.actual_info.text,
+                    camino: msg.camino.map(c => { return { anterior: c.anterior, candidato: c.candidato }}),
+                    inicio: msg.inicio,
+                    actual: msg.actual.replace(msg.base, ""),
+                    final: msg.final,
                     base: msg.base
                 }
                 msg.busqueda.juegos.push(juego);
@@ -133,20 +149,20 @@ export class Bot extends Core {
             }
 
             const mensaje = juego["camino_ia"]
-                .mensajes.find(m => m.actual == msg.actual_info.text)
+                .mensajes.find(m => m.actual == msg.actual.replace(msg.base, ""))
 
             if (!mensaje) {
 
                 console.log("RT BOT", "Inicializa mensaje para actual", msg.clave, msg.actual)
-                const archivo = this.rc.leer("archivo") || {};
+
                 const mensaje = {
                     base: msg.base,
-                    inicio: archivo[msg.inicio].headers[0].text,
-                    final: archivo[msg.final].headers[0].text,
-                    actual: msg.actual_info.text,
-                    camino: msg.camino.map(c => { return {
-                        anterior: archivo[c.anterior]?.headers[0].text.replace(msg.base, "") || c.anterior,
-                        candidato: archivo[c.candidato]?.headers[0].text.replace(msg.base, "") || c.candidato
+                    inicio: msg.inicio.replace(msg.base, ""),
+                    final: msg.final.replace(msg.base, ""),
+                    actual: msg.actual.replace(msg.base, ""),
+                    camino: msg.camino.filter(c => c.candidato).map((c, index) => { return {
+                        anterior: c.anterior,
+                        candidato: c.candidato
                     }}),
                     candidatos: msg.camino_info.candidatos.internos.map(e => e.text),
                 }
@@ -161,11 +177,13 @@ export class Bot extends Core {
                 msg.busqueda.salir_api = false;
             }
 
-
-
             if (juego["thread_info"]) {
+                msg.busqueda.thread = false;
                 msg.busqueda.thread_info = juego["thread_info"];
             } else {
+
+                console.log("RT BOT", "Solicita thread...", msg.clave)
+                msg.busqueda.thread = true;
                 msg.busqueda.salir_api = false;
             }
         }

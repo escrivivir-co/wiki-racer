@@ -1,38 +1,664 @@
 [
     {
-        "id": "eaf05303a4bedcb4",
-        "type": "tab",
-        "label": "WikiRacer",
-        "disabled": false,
+        "id": "f85f60e92465b507",
+        "type": "subflow",
+        "name": "SeccionPistas",
         "info": "",
-        "env": []
+        "category": "Wiki Racer",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "ed173a8bf4793247"
+                    },
+                    {
+                        "id": "31e9a9b02c35137d"
+                    },
+                    {
+                        "id": "7dfd3a9d4a5a3fda"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 960,
+                "y": 740,
+                "wires": [
+                    {
+                        "id": "4031d749da9e3cbc",
+                        "port": 0
+                    },
+                    {
+                        "id": "550d3d5bbc38329f",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 820,
+                "y": 760,
+                "wires": [
+                    {
+                        "id": "61f4879fb30386ef",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#FFAAAA",
+        "icon": "node-red/debug.svg"
     },
     {
-        "id": "f4028dc7e6195d21",
-        "type": "game",
-        "z": "eaf05303a4bedcb4",
+        "id": "e75dbc2f176a6bf8",
+        "type": "debug",
+        "z": "f85f60e92465b507",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 200,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6d2da27d10bfac88",
+        "type": "ui_template",
+        "z": "f85f60e92465b507",
+        "group": "75561547e129ef16",
+        "name": "FINAL INVÁLIDO",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"color:red\" ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 930,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "31e9a9b02c35137d",
+        "type": "switch",
+        "z": "f85f60e92465b507",
         "name": "",
-        "world": "56680a31b343cddd",
-        "x": 270,
-        "y": 460,
+        "property": "wiki.final_invalido",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 360,
         "wires": [
             [
-                "68119736ca84e536",
-                "04586cd07d640c76",
-                "786c1bd762091f92",
-                "2286610c48c45df6",
-                "b76910ad1c1bb651",
-                "3e47fcd26c67f505",
-                "6faeddd8239cc8a1",
-                "bc46b5a1e01cb52d",
-                "9702f3bfba80e7fc"
+                "25d1283dca053404"
+            ],
+            [
+                "51776df634852b0e"
             ]
         ]
     },
     {
-        "id": "b62bb1afb35b0ddb",
+        "id": "25d1283dca053404",
+        "type": "change",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "FINAL INVÁLIDO",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 340,
+        "wires": [
+            [
+                "6d2da27d10bfac88"
+            ]
+        ]
+    },
+    {
+        "id": "51776df634852b0e",
+        "type": "change",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 380,
+        "wires": [
+            [
+                "6d2da27d10bfac88"
+            ]
+        ]
+    },
+    {
+        "id": "fa4d1a2bf5213051",
+        "type": "ui_table",
+        "z": "f85f60e92465b507",
+        "group": "c733ae8c8f2dfb0a",
+        "name": "Pistas",
+        "order": 4,
+        "width": "12",
+        "height": "17",
+        "columns": [
+            {
+                "field": "ocurrences",
+                "title": "Veces",
+                "width": "50",
+                "align": "right",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "title",
+                "title": "Candidato",
+                "width": "",
+                "align": "left",
+                "formatter": "html",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 1,
+        "cts": true,
+        "x": 550,
+        "y": 560,
+        "wires": [
+            [
+                "4031d749da9e3cbc"
+            ]
+        ]
+    },
+    {
+        "id": "ed173a8bf4793247",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "PISTAS",
+        "func": "var camino = msg.wiki.pista_info;\nvar candidatos = msg.wiki.pista_info?.internos || [];\n\nconst payload = candidatos.map(o => { return {\n        description: o.id,\n        title: o.text,\n        ocurrences: o.ocurrencias,\n        id: o.text,\n}});\n\nflow.set(\"LAST_PISTAS_TABLA\", payload);\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 540,
+        "wires": [
+            [
+                "fa4d1a2bf5213051",
+                "068f75e610e5f0c0"
+            ]
+        ]
+    },
+    {
+        "id": "d824e89872ac2da4",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "FILTRAR",
+        "func": "var todos = flow.get(\"LAST_PISTAS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf((match + \"\").toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 580,
+        "wires": [
+            [
+                "fa4d1a2bf5213051"
+            ]
+        ]
+    },
+    {
+        "id": "550d3d5bbc38329f",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "SET PISTA",
+        "func": "msg.wiki = flow.get(\"wiki\", msg.wiki);\n\nmsg.wiki.pista = msg.payload ? msg.wiki.base + msg.payload.pista : null;\n\nif (msg.payload.pista) {\n    return [msg, null];\n} else {\n    msg.wiki.pista = \"\"\n    return [null, msg];\n}\n\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 640,
+        "wires": [
+            [
+                "61f4879fb30386ef",
+                "f21ec419829b0caa"
+            ],
+            [
+                "f21ec419829b0caa"
+            ]
+        ]
+    },
+    {
+        "id": "9227c46dda3d4cc1",
+        "type": "ui_text_input",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "label": "FiltrarPista",
+        "tooltip": "",
+        "group": "c733ae8c8f2dfb0a",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": false,
+        "className": "",
+        "topicType": "msg",
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "d824e89872ac2da4"
+            ]
+        ]
+    },
+    {
+        "id": "7dfd3a9d4a5a3fda",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "[",
+        "func": "flow.set(\"wiki\", msg.wiki);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "f21ec419829b0caa"
+            ]
+        ]
+    },
+    {
+        "id": "30f2b08cbf6de8eb",
+        "type": "ui_template",
+        "z": "f85f60e92465b507",
+        "group": "75561547e129ef16",
+        "name": "MODO PISTA",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"color:red\" ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1320,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f21ec419829b0caa",
+        "type": "switch",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "property": "wiki.pista",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "else"
+            },
+            {
+                "t": "null"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 970,
+        "y": 580,
+        "wires": [
+            [
+                "c126d7eda70ec42e"
+            ],
+            [
+                "8b337bb662ef78bf"
+            ],
+            [
+                "8b337bb662ef78bf"
+            ],
+            [
+                "8b337bb662ef78bf"
+            ]
+        ]
+    },
+    {
+        "id": "c126d7eda70ec42e",
+        "type": "change",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "MODO PISTA ACTIVADO (NO ALMACENA CAMINOS)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1140,
+        "y": 560,
+        "wires": [
+            [
+                "30f2b08cbf6de8eb"
+            ]
+        ]
+    },
+    {
+        "id": "8b337bb662ef78bf",
+        "type": "change",
+        "z": "f85f60e92465b507",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1140,
+        "y": 600,
+        "wires": [
+            [
+                "30f2b08cbf6de8eb"
+            ]
+        ]
+    },
+    {
+        "id": "683e93c73659add7",
+        "type": "ui_form",
+        "z": "f85f60e92465b507",
+        "name": "Pista",
+        "label": "Activar Pista",
+        "group": "c733ae8c8f2dfb0a",
+        "order": 2,
+        "width": "12",
+        "height": "9",
+        "options": [
+            {
+                "label": "pista",
+                "value": "pista",
+                "type": "text",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "pista": ""
+        },
+        "payload": "",
+        "submit": "Buscar",
+        "cancel": "Reiniciar",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 550,
+        "y": 600,
+        "wires": [
+            [
+                "550d3d5bbc38329f",
+                "c0e285c20337245e",
+                "61a487da902cef1a"
+            ]
+        ]
+    },
+    {
+        "id": "4031d749da9e3cbc",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "SET PISTA",
+        "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.payload = { pista: msg.payload.id.replace(msg.wiki.base, \"\") }\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 560,
+        "wires": [
+            [
+                "683e93c73659add7"
+            ]
+        ]
+    },
+    {
+        "id": "c0e285c20337245e",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "ECO",
+        "func": "return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 640,
+        "wires": [
+            [
+                "683e93c73659add7"
+            ]
+        ]
+    },
+    {
+        "id": "61a487da902cef1a",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "VACIAR",
+        "func": "return {\n    payload: []\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 620,
+        "wires": [
+            [
+                "fa4d1a2bf5213051"
+            ]
+        ]
+    },
+    {
+        "id": "068f75e610e5f0c0",
+        "type": "ui_template",
+        "z": "f85f60e92465b507",
+        "group": "c733ae8c8f2dfb0a",
+        "name": "Info pista",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": " <ul style=\"font-size:90%\">\n    <li>si no está en caché, buscar otra vez para enlaces</li>\n    <li>seleccionar enlace y dar a buscar</li>\n    <li>vacío para desactivar</li>\n<ul>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 560,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61f4879fb30386ef",
+        "type": "function",
+        "z": "f85f60e92465b507",
+        "name": "vaciar",
+        "func": "msg.payload = {};\nmsg.payload.text = \"Cargando\";\nmsg.payload.data = {};\nmsg.payload.data.html = \"Cargando\";\nmsg.payload.data.summary = {};\nmsg.payload.data.summary.extract_html = \"\"\nmsg.wiki.actual_info = msg.payload;\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c733ae8c8f2dfb0a",
+        "type": "ui_group",
+        "name": "Pista",
+        "tab": "e260e9f9eb787f79",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "e260e9f9eb787f79",
+        "type": "ui_tab",
+        "name": "Wiki Racer Dashboard",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "527edf7c34172356",
+        "type": "subflow",
+        "name": "Tablero",
+        "info": "",
+        "category": "Wiki Racer",
+        "in": [
+            {
+                "x": 183.33333333333334,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "87a127443c696d74"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 560,
+                "y": 480,
+                "wires": [
+                    {
+                        "id": "44388924ff38df15",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99",
+        "icon": "node-red/function.svg"
+    },
+    {
+        "id": "44388924ff38df15",
+        "type": "game",
+        "z": "527edf7c34172356",
+        "name": "",
+        "world": "56680a31b343cddd",
+        "x": 410,
+        "y": 480,
+        "wires": [
+            [
+                "b51159b3dc92327c",
+                "17bed414dc53fcbc",
+                "39ded0f306ecdb1e",
+                "f99241e17299c9f7",
+                "5ce365068007079b",
+                "27ebe0027f9ebd5a",
+                "4adf4d3e2d5a90b5",
+                "581a0ddae1e8039b",
+                "70fd7468189e91be",
+                "917cd4d595b86165"
+            ]
+        ]
+    },
+    {
+        "id": "9cf3a4fb6f4131e1",
         "type": "inject",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Configurar Juego",
         "props": [
             {
@@ -48,21 +674,21 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"clave\":\"Juego-1\",\"inicio\":\"Esquema_Nacional_de_Seguridad\",\"final\":\"Isaac_Asimov\",\"base\":\"https://es.wikipedia.org/wiki/\",\"disco\":\"/Users/morente/Desktop/wiki-racer/CRIPTA\"}",
+        "payload": "{\"clave\":\"Juego-1\",\"inicio\":\"Hip%C3%B3tesis_Gaia\",\"final\":\"Magia_del_caos\",\"base\":\"https://es.wikipedia.org/wiki/\",\"disco\":\"/Users/morente/Desktop/wiki-racer/CRIPTA\"}",
         "payloadType": "json",
-        "x": 170,
-        "y": 120,
+        "x": 310,
+        "y": 140,
         "wires": [
             [
-                "1a074cf00fc302ce",
-                "b9117df94767d2f4"
+                "00dbcbf3d123ca0e",
+                "0bd3614c6b671718"
             ]
         ]
     },
     {
-        "id": "1a074cf00fc302ce",
+        "id": "00dbcbf3d123ca0e",
         "type": "ui_form",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Configurar Juego",
         "label": "Partida",
         "group": "75561547e129ef16",
@@ -120,19 +746,19 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 510,
-        "y": 120,
+        "x": 650,
+        "y": 140,
         "wires": [
             [
-                "1a7385a429d156bf",
-                "9bb6f13900f94446"
+                "6241aa76af8a8bf2",
+                "e68b58225a2d6ab7"
             ]
         ]
     },
     {
-        "id": "1a7385a429d156bf",
+        "id": "6241aa76af8a8bf2",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "--",
         "func": "msg.wiki = msg.payload;\n\nreturn msg;",
         "outputs": 1,
@@ -141,18 +767,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 120,
+        "x": 830,
+        "y": 140,
         "wires": [
             [
-                "90a74391c46f2ce7"
+                "4c27a16fd551ac87"
             ]
         ]
     },
     {
-        "id": "9bb6f13900f94446",
+        "id": "e68b58225a2d6ab7",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Eco",
         "func": "return msg;",
         "outputs": 1,
@@ -161,18 +787,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 510,
-        "y": 60,
+        "x": 650,
+        "y": 80,
         "wires": [
             [
-                "1a074cf00fc302ce"
+                "00dbcbf3d123ca0e"
             ]
         ]
     },
     {
-        "id": "68119736ca84e536",
+        "id": "b51159b3dc92327c",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "[",
         "func": "var modelo = msg.wiki.guion || [];\nvar payload = modelo\n        .map((e, i) => {return {e}});\n\nreturn {\n    payload\n};",
         "outputs": 1,
@@ -181,18 +807,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 520,
+        "x": 610,
+        "y": 540,
         "wires": [
             [
-                "71745e3a89bea199"
+                "da9b827b0f1eda58"
             ]
         ]
     },
     {
-        "id": "71745e3a89bea199",
+        "id": "da9b827b0f1eda58",
         "type": "ui_table",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "b2dde490c8706fc2",
         "name": "Partida",
         "order": 7,
@@ -201,18 +827,18 @@
         "columns": [],
         "outputs": 1,
         "cts": true,
-        "x": 600,
-        "y": 520,
+        "x": 740,
+        "y": 540,
         "wires": [
             [
-                "87e91bc4a54808d5"
+                "bbf15a216096d83d"
             ]
         ]
     },
     {
-        "id": "04586cd07d640c76",
+        "id": "17bed414dc53fcbc",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "[",
         "func": "var modelo = msg.wiki.turno || [];\nvar payload = modelo\n        .map((e, i) => {return {e}});\n\nreturn {\n    payload\n};",
         "outputs": 1,
@@ -221,18 +847,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 480,
+        "x": 610,
+        "y": 500,
         "wires": [
             [
-                "ae516397de591b2c"
+                "4c4ed26669c188aa"
             ]
         ]
     },
     {
-        "id": "ae516397de591b2c",
+        "id": "4c4ed26669c188aa",
         "type": "ui_table",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "b2dde490c8706fc2",
         "name": "Turno",
         "order": 6,
@@ -241,14 +867,14 @@
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 590,
-        "y": 480,
+        "x": 730,
+        "y": 500,
         "wires": []
     },
     {
-        "id": "786c1bd762091f92",
+        "id": "39ded0f306ecdb1e",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Actual",
         "func": "var payload = (msg.wiki.actual_info);\n\nreturn {\n    payload\n};",
         "outputs": 1,
@@ -257,22 +883,22 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1190,
-        "y": 260,
+        "x": 1330,
+        "y": 280,
         "wires": [
             [
-                "ee5987e72dbb575a",
-                "ae1150a29281682b"
+                "f3368f00fe1779a2",
+                "ffafaa0f10e9441f"
             ]
         ]
     },
     {
-        "id": "ee5987e72dbb575a",
+        "id": "f3368f00fe1779a2",
         "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "9dbb6ba740014442",
         "name": "Actual",
-        "order": 1,
+        "order": 2,
         "width": "12",
         "height": "8",
         "format": "<h3 ng-bind-html=\"msg.payload.text\"></h3>\n<div ng-bind-html=\"msg.payload.data.summary.extract_html\"></div>",
@@ -281,16 +907,16 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1330,
-        "y": 240,
+        "x": 1470,
+        "y": 260,
         "wires": [
             []
         ]
     },
     {
-        "id": "53bb91c5f7339ade",
+        "id": "d1427e56c2ac27b6",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "CANDIDATO",
         "func": "msg.wiki = flow.get(\"wiki\");\nmsg.wiki.actual = msg.payload.description;\nmsg.wiki.actual_title = msg.payload.id;\n\n\nmsg.payload = {};\nmsg.payload.text = \"Cargando\";\nmsg.payload.data = {};\nmsg.payload.data.html = \"Cargando\";\nmsg.payload.data.summary = {};\nmsg.payload.data.summary.extract_html = \"\"\nmsg.wiki.actual_info = msg.payload;\n\nreturn msg;",
         "outputs": 1,
@@ -299,23 +925,23 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 970,
-        "y": 260,
+        "x": 1110,
+        "y": 280,
         "wires": [
             [
-                "786c1bd762091f92",
-                "1a15487bb275f39b",
-                "90a74391c46f2ce7"
+                "39ded0f306ecdb1e",
+                "f4887dd90adef95c",
+                "4c27a16fd551ac87"
             ]
         ]
     },
     {
-        "id": "13ead93121f53caa",
+        "id": "6c5359a6fcd7070f",
         "type": "ui_table",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "9dbb6ba740014442",
         "name": "Candidatos",
-        "order": 3,
+        "order": 9,
         "width": "12",
         "height": "35",
         "columns": [
@@ -342,18 +968,18 @@
         ],
         "outputs": 1,
         "cts": true,
-        "x": 810,
-        "y": 260,
+        "x": 950,
+        "y": 280,
         "wires": [
             [
-                "53bb91c5f7339ade"
+                "d1427e56c2ac27b6"
             ]
         ]
     },
     {
-        "id": "2286610c48c45df6",
+        "id": "f99241e17299c9f7",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "CANDIDATOS",
         "func": "var camino = msg.wiki.camino_info;\nvar candidatos = camino?.candidatos?.internos || [];\n\nflow.set(\"wiki\", msg.wiki);\n\nconst payload = candidatos.map(o => { return {\n        description: o.id,\n        title: o.text,\n        ocurrences: o.ocurrencias,\n        id: o.text,\n}});\n\nflow.set(\"LAST_CANDIDATOS_TABLA\", payload);\n\nreturn {\n    payload\n};",
         "outputs": 1,
@@ -362,18 +988,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 320,
+        "x": 640,
+        "y": 340,
         "wires": [
             [
-                "13ead93121f53caa"
+                "6c5359a6fcd7070f"
             ]
         ]
     },
     {
-        "id": "87e91bc4a54808d5",
+        "id": "bbf15a216096d83d",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "][",
         "func": "msg.wiki = flow.get(\"wiki\");\n\nconst indice = msg.payload.e.split(\":\")[0].replace(\"- \", \"\");\nmsg.wiki.restaurar = indice;\n\nflow.set(\"wiki\", msg.wiki);\n\nmsg.payload = {\n    restaurar: indice,\n    enlace: msg.payload.e.split(\":\")[1].replace(\"- \", \"\")\n}\nreturn msg;",
         "outputs": 1,
@@ -382,19 +1008,19 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 520,
+        "x": 870,
+        "y": 540,
         "wires": [
             [
-                "7cc92742039e0c3f",
-                "64798d77edfb0cde"
+                "9d2e514a476ce74f",
+                "814a11ad40436c47"
             ]
         ]
     },
     {
-        "id": "6d6d90c9713c0cee",
+        "id": "0b827173c492d4ba",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "]",
         "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.restaurar = msg.payload.restaurar;\nmsg.wiki.restaurar_commit = true;\n\nreturn msg;",
         "outputs": 1,
@@ -403,19 +1029,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1030,
-        "y": 520,
+        "x": 1170,
+        "y": 540,
         "wires": [
             [
-                "64798d77edfb0cde",
-                "2042d8d852eca303"
+                "814a11ad40436c47"
             ]
         ]
     },
     {
-        "id": "ae1150a29281682b",
+        "id": "ffafaa0f10e9441f",
         "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "aad5a613de267b5b",
         "name": "Detalles",
         "order": 1,
@@ -427,16 +1052,16 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1340,
-        "y": 280,
+        "x": 1480,
+        "y": 300,
         "wires": [
             []
         ]
     },
     {
-        "id": "8b5878b77960d697",
+        "id": "076050ad1bb1ba8f",
         "type": "ui_gauge",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "",
         "group": "b2dde490c8706fc2",
         "order": 5,
@@ -457,14 +1082,14 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 620,
-        "y": 400,
+        "x": 760,
+        "y": 420,
         "wires": []
     },
     {
-        "id": "b76910ad1c1bb651",
+        "id": "5ce365068007079b",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "[",
         "func": "return {\n    payload: msg.wiki.camino.length\n};",
         "outputs": 1,
@@ -473,18 +1098,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 400,
+        "x": 610,
+        "y": 420,
         "wires": [
             [
-                "8b5878b77960d697"
+                "076050ad1bb1ba8f"
             ]
         ]
     },
     {
-        "id": "1a15487bb275f39b",
+        "id": "f4887dd90adef95c",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "VACIAR",
         "func": "return {\n    payload: []\n};",
         "outputs": 1,
@@ -493,20 +1118,20 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 260,
+        "x": 620,
+        "y": 280,
         "wires": [
             [
-                "13ead93121f53caa",
-                "c9a6e09ba18ef04b",
-                "ae516397de591b2c"
+                "6c5359a6fcd7070f",
+                "f7c632816ecf72cb",
+                "4c4ed26669c188aa"
             ]
         ]
     },
     {
-        "id": "4bc2f060f96d2bbd",
+        "id": "5798c5cbaf297405",
         "type": "ui_button",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "",
         "group": "75561547e129ef16",
         "order": 3,
@@ -523,18 +1148,18 @@
         "payloadType": "date",
         "topic": "topic",
         "topicType": "msg",
-        "x": 920,
-        "y": 360,
+        "x": 1060,
+        "y": 380,
         "wires": [
             [
-                "36335ab80dd67751"
+                "5692f4ed38a238fc"
             ]
         ]
     },
     {
-        "id": "8a540e157bb3bf71",
+        "id": "4e18e4e15d17c097",
         "type": "ui_table",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "75561547e129ef16",
         "name": "Juegos",
         "order": 8,
@@ -543,18 +1168,18 @@
         "columns": [],
         "outputs": 1,
         "cts": true,
-        "x": 600,
-        "y": 440,
+        "x": 740,
+        "y": 460,
         "wires": [
             [
-                "9f091ca5bbf1a5bd"
+                "84bef490b97fc756"
             ]
         ]
     },
     {
-        "id": "3e47fcd26c67f505",
+        "id": "27ebe0027f9ebd5a",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "[",
         "func": "var modelo = msg.wiki.juegos || [];\nvar payload = modelo\n        .map((e, i) => {return {e: e.clave}});\n\nreturn {\n    payload\n};",
         "outputs": 1,
@@ -563,18 +1188,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 440,
+        "x": 610,
+        "y": 460,
         "wires": [
             [
-                "8a540e157bb3bf71"
+                "4e18e4e15d17c097"
             ]
         ]
     },
     {
-        "id": "36335ab80dd67751",
+        "id": "5692f4ed38a238fc",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "GUARDAR",
         "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.guardar = true;\n\nreturn msg;",
         "outputs": 1,
@@ -583,18 +1208,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 360,
+        "x": 1230,
+        "y": 380,
         "wires": [
             [
-                "b052ea7f3b135204"
+                "aa5345cb6ca0db92"
             ]
         ]
     },
     {
-        "id": "9f091ca5bbf1a5bd",
+        "id": "84bef490b97fc756",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "]",
         "func": "return {\n    payload: {\n        cargar_juego: msg.payload.e,\n        borrar_juego: msg.payload.e\n    }\n};",
         "outputs": 1,
@@ -603,19 +1228,19 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 440,
+        "x": 870,
+        "y": 460,
         "wires": [
             [
-                "1804640cf0714cda",
-                "b880f82df6324365"
+                "56830690ec2da1b5",
+                "6089492416f8194b"
             ]
         ]
     },
     {
-        "id": "1804640cf0714cda",
+        "id": "56830690ec2da1b5",
         "type": "ui_form",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Cargar juego",
         "label": "",
         "group": "75561547e129ef16",
@@ -641,18 +1266,18 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 910,
-        "y": 420,
+        "x": 1050,
+        "y": 440,
         "wires": [
             [
-                "cf2a630459404795"
+                "b23089cf1bda5275"
             ]
         ]
     },
     {
-        "id": "cf2a630459404795",
+        "id": "b23089cf1bda5275",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "END",
         "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.wiki.cargar_juego = msg.payload.cargar_juego;\nmsg.wiki.borrar_juego = msg.payload.borrar_juego;\n\nreturn msg;",
         "outputs": 1,
@@ -661,18 +1286,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 440,
+        "x": 1230,
+        "y": 460,
         "wires": [
             [
-                "b052ea7f3b135204"
+                "aa5345cb6ca0db92"
             ]
         ]
     },
     {
-        "id": "b880f82df6324365",
+        "id": "6089492416f8194b",
         "type": "ui_form",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Borrar juego",
         "label": "",
         "group": "75561547e129ef16",
@@ -698,18 +1323,18 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 910,
-        "y": 460,
+        "x": 1050,
+        "y": 480,
         "wires": [
             [
-                "cf2a630459404795"
+                "b23089cf1bda5275"
             ]
         ]
     },
     {
-        "id": "6faeddd8239cc8a1",
+        "id": "4adf4d3e2d5a90b5",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "CONFIGURAR",
         "func": "msg.payload = {\n    ...msg.wiki,\n    \"inicio\": msg.wiki.inicio.replace(msg.wiki.base, \"\"),\n    \"final\": msg.wiki.final.replace(msg.wiki.base, \"\"),\n}\nreturn msg;",
         "outputs": 1,
@@ -718,131 +1343,122 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 360,
+        "x": 640,
+        "y": 380,
         "wires": [
             [
-                "15e04fa04a8d5079"
+                "88b59d6c279fae55"
             ]
         ]
     },
     {
-        "id": "90a74391c46f2ce7",
+        "id": "4c27a16fd551ac87",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 1",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "1461872b331c965e"
         ],
-        "x": 815,
-        "y": 120,
+        "x": 955,
+        "y": 140,
         "wires": []
     },
     {
-        "id": "72aa6e95d0f2bf37",
+        "id": "1461872b331c965e",
         "type": "link in",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link in 1",
         "links": [
-            "90a74391c46f2ce7",
-            "b052ea7f3b135204",
-            "1134c2739ecaf947",
-            "64798d77edfb0cde",
-            "a8f0a127f4a0600b",
-            "fd39a85e05f66aec"
+            "4c27a16fd551ac87",
+            "aa5345cb6ca0db92",
+            "7199a07d22b0c072",
+            "814a11ad40436c47",
+            "f00be4d9aea2ea2f"
         ],
-        "x": 115,
-        "y": 480,
+        "x": 255,
+        "y": 500,
         "wires": [
             [
-                "f4028dc7e6195d21",
-                "02df6c11272019fe"
+                "44388924ff38df15",
+                "32967b12be6f829a"
             ]
         ]
     },
     {
-        "id": "b052ea7f3b135204",
+        "id": "aa5345cb6ca0db92",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 2",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "1461872b331c965e"
         ],
-        "x": 1215,
-        "y": 440,
+        "x": 1355,
+        "y": 460,
         "wires": []
     },
     {
-        "id": "1134c2739ecaf947",
+        "id": "7199a07d22b0c072",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 3",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "1461872b331c965e"
         ],
-        "x": 275,
-        "y": 200,
+        "x": 415,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "64798d77edfb0cde",
+        "id": "814a11ad40436c47",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 4",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "1461872b331c965e"
         ],
-        "x": 1125,
-        "y": 580,
+        "x": 1265,
+        "y": 600,
         "wires": []
     },
     {
-        "id": "21e5719249bbc3e9",
+        "id": "5e3bb086f69a5b40",
         "type": "link in",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link in 2",
         "links": [
-            "15e04fa04a8d5079"
+            "88b59d6c279fae55"
         ],
-        "x": 375,
-        "y": 160,
+        "x": 515,
+        "y": 180,
         "wires": [
             [
-                "1a074cf00fc302ce"
+                "00dbcbf3d123ca0e"
             ]
         ]
     },
     {
-        "id": "15e04fa04a8d5079",
+        "id": "88b59d6c279fae55",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 5",
         "mode": "link",
         "links": [
-            "21e5719249bbc3e9"
+            "5e3bb086f69a5b40"
         ],
-        "x": 635,
-        "y": 360,
+        "x": 775,
+        "y": 380,
         "wires": []
     },
     {
-        "id": "02df6c11272019fe",
+        "id": "32967b12be6f829a",
         "type": "debug",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "TO_WIKI",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -850,14 +1466,14 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 240,
-        "y": 540,
+        "x": 380,
+        "y": 560,
         "wires": []
     },
     {
-        "id": "b9117df94767d2f4",
+        "id": "0bd3614c6b671718",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "--",
         "func": "msg.wiki = msg.payload;\n\nreturn msg;",
         "outputs": 1,
@@ -866,43 +1482,44 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
-        "y": 200,
+        "x": 330,
+        "y": 220,
         "wires": [
             [
-                "1134c2739ecaf947"
+                "7199a07d22b0c072"
             ]
         ]
     },
     {
-        "id": "63311567f131ead1",
+        "id": "87a127443c696d74",
         "type": "function",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "FILTRAR",
-        "func": "var todos = flow.get(\"LAST_CANDIDATOS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf(match.toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
+        "func": "var todos = flow.get(\"LAST_CANDIDATOS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf((match + \"\").toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 200,
+        "x": 740,
+        "y": 220,
         "wires": [
             [
-                "13ead93121f53caa"
+                "6c5359a6fcd7070f",
+                "139689386bd3bc46"
             ]
         ]
     },
     {
-        "id": "c9a6e09ba18ef04b",
+        "id": "f7c632816ecf72cb",
         "type": "ui_text_input",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "",
         "label": "Filtrar",
         "tooltip": "",
         "group": "9dbb6ba740014442",
-        "order": 2,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -912,18 +1529,18 @@
         "sendOnBlur": false,
         "className": "",
         "topicType": "msg",
-        "x": 450,
-        "y": 200,
+        "x": 590,
+        "y": 220,
         "wires": [
             [
-                "63311567f131ead1"
+                "87a127443c696d74"
             ]
         ]
     },
     {
-        "id": "588f8791269fc069",
+        "id": "35cd261e5101e37e",
         "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "group": "aad5a613de267b5b",
         "name": "CSS",
         "order": 1,
@@ -935,556 +1552,60 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1070,
-        "y": 60,
+        "x": 1210,
+        "y": 80,
         "wires": [
             []
         ]
     },
     {
-        "id": "da29bf36664f3866",
-        "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
-        "group": "75561547e129ef16",
-        "name": "FINAL INVÁLIDO",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"color:red\" ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 890,
-        "y": 660,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "40ae8a79bf67ccc3",
-        "type": "switch",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "property": "wiki.final_invalido",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 550,
-        "y": 660,
-        "wires": [
-            [
-                "7d742d67f69d6fde"
-            ],
-            [
-                "5f880d97f32e83d0"
-            ]
-        ]
-    },
-    {
-        "id": "7d742d67f69d6fde",
-        "type": "change",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "FINAL INVÁLIDO",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 640,
-        "wires": [
-            [
-                "da29bf36664f3866"
-            ]
-        ]
-    },
-    {
-        "id": "5f880d97f32e83d0",
-        "type": "change",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 680,
-        "wires": [
-            [
-                "da29bf36664f3866"
-            ]
-        ]
-    },
-    {
-        "id": "27e43f3b0be766a5",
-        "type": "ui_table",
-        "z": "eaf05303a4bedcb4",
-        "group": "c733ae8c8f2dfb0a",
-        "name": "Pistas",
-        "order": 4,
-        "width": "12",
-        "height": "17",
-        "columns": [
-            {
-                "field": "ocurrences",
-                "title": "Veces",
-                "width": "50",
-                "align": "right",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "title",
-                "title": "Candidato",
-                "width": "",
-                "align": "left",
-                "formatter": "html",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
-        "outputs": 1,
-        "cts": true,
-        "x": 410,
-        "y": 960,
-        "wires": [
-            [
-                "4adbd3530ee9e1a6"
-            ]
-        ]
-    },
-    {
-        "id": "7efec48a6d708e14",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "PISTAS",
-        "func": "var camino = msg.wiki.pista_info;\nvar candidatos = msg.wiki.pista_info?.internos || [];\n\nconst payload = candidatos.map(o => { return {\n        description: o.id,\n        title: o.text,\n        ocurrences: o.ocurrencias,\n        id: o.text,\n}});\n\nflow.set(\"LAST_PISTAS_TABLA\", payload);\n\nreturn {\n    payload\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 940,
-        "wires": [
-            [
-                "27e43f3b0be766a5",
-                "5f18ee33ce00c3c4"
-            ]
-        ]
-    },
-    {
-        "id": "64f9d7cf9ca7be0c",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "FILTRAR",
-        "func": "var todos = flow.get(\"LAST_PISTAS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf(match.toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 980,
-        "wires": [
-            [
-                "27e43f3b0be766a5"
-            ]
-        ]
-    },
-    {
-        "id": "9d814014b1481520",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "SET PISTA",
-        "func": "msg.wiki = flow.get(\"wiki\", msg.wiki);\n\nmsg.wiki.pista = msg.payload ? msg.wiki.base + msg.payload.pista : null;\n\nif (msg.payload.pista) {\n    return [msg, null];\n} else {\n    msg.wiki.pista = \"\"\n    return [null, msg];\n}\n\n",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 1040,
-        "wires": [
-            [
-                "fd39a85e05f66aec",
-                "52ae5d543ca77431"
-            ],
-            [
-                "1d91e140b509f182"
-            ]
-        ]
-    },
-    {
-        "id": "6f6ec129885e077f",
-        "type": "ui_text_input",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "label": "FiltrarPista",
-        "tooltip": "",
-        "group": "c733ae8c8f2dfb0a",
-        "order": 3,
-        "width": "0",
-        "height": "0",
-        "passthru": true,
-        "mode": "text",
-        "delay": 300,
-        "topic": "topic",
-        "sendOnBlur": false,
-        "className": "",
-        "topicType": "msg",
-        "x": 70,
-        "y": 980,
-        "wires": [
-            [
-                "64f9d7cf9ca7be0c"
-            ]
-        ]
-    },
-    {
-        "id": "fd39a85e05f66aec",
+        "id": "f00be4d9aea2ea2f",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 6",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "1461872b331c965e"
         ],
-        "x": 635,
-        "y": 1000,
+        "x": 915,
+        "y": 900,
         "wires": []
     },
     {
-        "id": "1fab692a8459a782",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "[",
-        "func": "flow.set(\"wiki\", msg.wiki);\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 920,
-        "wires": [
-            [
-                "1d91e140b509f182"
-            ]
-        ]
-    },
-    {
-        "id": "b7cf6eabf8559f77",
-        "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
-        "group": "75561547e129ef16",
-        "name": "MODO PISTA",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "format": "<div style=\"color:red\" ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 1180,
-        "y": 980,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1d91e140b509f182",
-        "type": "switch",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "property": "wiki.pista",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "else"
-            },
-            {
-                "t": "null"
-            },
-            {
-                "t": "empty"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 4,
-        "x": 830,
-        "y": 980,
-        "wires": [
-            [
-                "38a98bb26638c7b7"
-            ],
-            [
-                "d2760f1aac037c0d"
-            ],
-            [
-                "d2760f1aac037c0d"
-            ],
-            [
-                "d2760f1aac037c0d"
-            ]
-        ]
-    },
-    {
-        "id": "38a98bb26638c7b7",
-        "type": "change",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "MODO PISTA ACTIVADO (NO ALMACENA CAMINOS)",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1000,
-        "y": 960,
-        "wires": [
-            [
-                "b7cf6eabf8559f77"
-            ]
-        ]
-    },
-    {
-        "id": "d2760f1aac037c0d",
-        "type": "change",
-        "z": "eaf05303a4bedcb4",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1000,
-        "y": 1000,
-        "wires": [
-            [
-                "b7cf6eabf8559f77"
-            ]
-        ]
-    },
-    {
-        "id": "afa210afe19a3cef",
-        "type": "ui_form",
-        "z": "eaf05303a4bedcb4",
-        "name": "Pista",
-        "label": "Activar Pista",
-        "group": "c733ae8c8f2dfb0a",
-        "order": 2,
-        "width": "12",
-        "height": "9",
-        "options": [
-            {
-                "label": "pista",
-                "value": "pista",
-                "type": "text",
-                "required": false,
-                "rows": null
-            }
-        ],
-        "formValue": {
-            "pista": ""
-        },
-        "payload": "",
-        "submit": "Buscar",
-        "cancel": "Reiniciar",
-        "topic": "topic",
-        "topicType": "msg",
-        "splitLayout": "",
-        "className": "",
-        "x": 410,
-        "y": 1000,
-        "wires": [
-            [
-                "9d814014b1481520",
-                "6b2de6de7944ceb6",
-                "2d5f167a0980afa1"
-            ]
-        ]
-    },
-    {
-        "id": "4adbd3530ee9e1a6",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "SET PISTA",
-        "func": "msg.wiki = flow.get(\"wiki\");\n\nmsg.payload = { pista: msg.payload.id.replace(msg.wiki.base, \"\") }\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 960,
-        "wires": [
-            [
-                "afa210afe19a3cef"
-            ]
-        ]
-    },
-    {
-        "id": "6b2de6de7944ceb6",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "ECO",
-        "func": "return msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 1040,
-        "wires": [
-            [
-                "afa210afe19a3cef"
-            ]
-        ]
-    },
-    {
-        "id": "2d5f167a0980afa1",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "VACIAR",
-        "func": "return {\n    payload: []\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 1020,
-        "wires": [
-            [
-                "27e43f3b0be766a5"
-            ]
-        ]
-    },
-    {
-        "id": "5f18ee33ce00c3c4",
-        "type": "ui_template",
-        "z": "eaf05303a4bedcb4",
-        "group": "c733ae8c8f2dfb0a",
-        "name": "Info pista",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "format": " <ul style=\"font-size:90%\">\n    <li>si no está en caché, buscar otra vez para enlaces</li>\n    <li>seleccionar enlace y dar a buscar</li>\n    <li>vacío para desactivar</li>\n<ul>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 420,
-        "y": 920,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "bc46b5a1e01cb52d",
+        "id": "581a0ddae1e8039b",
         "type": "link out",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link out 8",
         "mode": "link",
         "links": [
-            "c5e942643f579c7f"
+            "65214cac288cd0db"
         ],
-        "x": 45,
-        "y": 800,
+        "x": 455,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "c5e942643f579c7f",
+        "id": "65214cac288cd0db",
         "type": "link in",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "link in 4",
         "links": [
-            "bc46b5a1e01cb52d"
+            "581a0ddae1e8039b"
         ],
-        "x": 325,
-        "y": 720,
+        "x": 465,
+        "y": 740,
         "wires": [
             [
-                "7efec48a6d708e14",
-                "1fab692a8459a782",
-                "40ae8a79bf67ccc3"
+                "643ab156242bcfa5"
             ]
         ]
     },
     {
-        "id": "9702f3bfba80e7fc",
+        "id": "70fd7468189e91be",
         "type": "debug",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "FROM_WIKI",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1492,52 +1613,14 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 410,
-        "y": 580,
+        "x": 550,
+        "y": 600,
         "wires": []
     },
     {
-        "id": "2042d8d852eca303",
-        "type": "debug",
-        "z": "eaf05303a4bedcb4",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 180,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "52ae5d543ca77431",
-        "type": "function",
-        "z": "eaf05303a4bedcb4",
-        "name": "vaciar",
-        "func": "msg.payload = {};\nmsg.payload.text = \"Cargando\";\nmsg.payload.data = {};\nmsg.payload.data.html = \"Cargando\";\nmsg.payload.data.summary = {};\nmsg.payload.data.summary.extract_html = \"\"\nmsg.wiki.actual_info = msg.payload;\nmsg.payload = [];\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 800,
-        "wires": [
-            [
-                "786c1bd762091f92",
-                "ae516397de591b2c"
-            ]
-        ]
-    },
-    {
-        "id": "7cc92742039e0c3f",
+        "id": "9d2e514a476ce74f",
         "type": "ui_form",
-        "z": "eaf05303a4bedcb4",
+        "z": "527edf7c34172356",
         "name": "Vuelta atrás a...",
         "label": "Vuelta atrás a...",
         "group": "b2dde490c8706fc2",
@@ -1571,13 +1654,64 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 840,
-        "y": 580,
+        "x": 980,
+        "y": 600,
         "wires": [
             [
-                "6d6d90c9713c0cee"
+                "0b827173c492d4ba"
             ]
         ]
+    },
+    {
+        "id": "643ab156242bcfa5",
+        "type": "subflow:f85f60e92465b507",
+        "z": "527edf7c34172356",
+        "name": "",
+        "x": 670,
+        "y": 880,
+        "wires": [
+            [
+                "f00be4d9aea2ea2f"
+            ],
+            [
+                "39ded0f306ecdb1e",
+                "4c4ed26669c188aa"
+            ]
+        ]
+    },
+    {
+        "id": "917cd4d595b86165",
+        "type": "debug",
+        "z": "527edf7c34172356",
+        "name": "XXXX",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "139689386bd3bc46",
+        "type": "debug",
+        "z": "527edf7c34172356",
+        "name": "XXXX",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 180,
+        "wires": []
     },
     {
         "id": "75561547e129ef16",
@@ -1624,22 +1758,299 @@
         "className": ""
     },
     {
-        "id": "c733ae8c8f2dfb0a",
-        "type": "ui_group",
-        "name": "Pista",
-        "tab": "e260e9f9eb787f79",
-        "order": 3,
-        "disp": true,
-        "width": "12",
-        "collapse": true,
-        "className": ""
+        "id": "ec49d4ad29d52eb5",
+        "type": "tab",
+        "label": "WikiRacer con IA",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
-        "id": "e260e9f9eb787f79",
-        "type": "ui_tab",
-        "name": "Wiki Racer Dashboard",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
+        "id": "ea644d267100156a",
+        "type": "bot",
+        "z": "ec49d4ad29d52eb5",
+        "name": "bot",
+        "world": "",
+        "x": 230,
+        "y": 320,
+        "wires": [
+            [
+                "8242f2f6e711a3df"
+            ]
+        ]
+    },
+    {
+        "id": "fdf48db53c3ae7c0",
+        "type": "function",
+        "z": "ec49d4ad29d52eb5",
+        "name": "Store wiki",
+        "func": "flow.set(\"wiki\", msg.wiki);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 200,
+        "wires": [
+            [
+                "ea644d267100156a"
+            ]
+        ]
+    },
+    {
+        "id": "20a8185e1627d4d2",
+        "type": "subflow:527edf7c34172356",
+        "z": "ec49d4ad29d52eb5",
+        "name": "",
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "fdf48db53c3ae7c0"
+            ]
+        ]
+    },
+    {
+        "id": "a8832c96b5bc63c6",
+        "type": "function",
+        "z": "ec49d4ad29d52eb5",
+        "name": "complete",
+        "func": "const m = flow.get(\"wiki\").busqueda;\n\nconst toComplete = {\n    payload: {\n        messages: [\n            {\n                role: \"user\",\n                content: JSON.stringify({\n                    instructions: m.instrucciones,\n                    context: flow.get(\"IA_PISTA\")\n                })\n            }\n        ],\n        model: \"gpt-4o\"\n    }\n}\n\nreturn toComplete;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "206a1e48f9f29993"
+            ]
+        ]
+    },
+    {
+        "id": "a44019b1c32d4c48",
+        "type": "ui_form",
+        "z": "ec49d4ad29d52eb5",
+        "name": "",
+        "label": "Sugerencia (IA)",
+        "group": "9dbb6ba740014442",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "actual",
+                "value": "actual",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "actual": ""
+        },
+        "payload": "",
+        "submit": "Ejecutar",
+        "cancel": "Reset",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 560,
+        "y": 280,
+        "wires": [
+            [
+                "b37c54e540019203",
+                "1fe2c77418a05c6b"
+            ]
+        ]
+    },
+    {
+        "id": "8242f2f6e711a3df",
+        "type": "function",
+        "z": "ec49d4ad29d52eb5",
+        "name": "[",
+        "func": "var juegos = flow.get(\"wiki\").busqueda.juegos || [];\n\nconst juego = juegos\n    .find(c => c.clave == flow.get(\"wiki\").clave) \n        || { camino_ia: { mensajes: [] }};\n\nconst incognita = juego.camino_ia\n    .mensajes[juego.camino_ia.mensajes.length - 1];\n\nflow.set(\"IA_PISTA\", incognita);\n\nreturn {\n    payload: { \n        clave: flow.get(\"wiki\").clave,\n        incognita,\n        actual: incognita?.actual\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 320,
+        "wires": [
+            [
+                "a44019b1c32d4c48",
+                "3bdbd98e39928563",
+                "a74efc7191915405"
+            ]
+        ]
+    },
+    {
+        "id": "206a1e48f9f29993",
+        "type": "OpenAI API",
+        "z": "ec49d4ad29d52eb5",
+        "name": "RUN",
+        "property": "payload",
+        "propertyType": "msg",
+        "service": "a5c37a90d9540a6f",
+        "method": "createChatCompletion",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "0848fc53f8f47725"
+            ]
+        ]
+    },
+    {
+        "id": "0848fc53f8f47725",
+        "type": "function",
+        "z": "ec49d4ad29d52eb5",
+        "name": "Candidato",
+        "func": "const m = JSON.parse(msg\n    .payload\n    .choices[0]\n    .message\n    .content.replace(\"```json\", \"\").replace(\"```\", \"\"));\n\nmsg.payload = m.candidato;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "e33e23685342060f",
+                "20a8185e1627d4d2"
+            ]
+        ]
+    },
+    {
+        "id": "e33e23685342060f",
+        "type": "ui_text",
+        "z": "ec49d4ad29d52eb5",
+        "group": "9dbb6ba740014442",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Sugerencia",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3bdbd98e39928563",
+        "type": "function",
+        "z": "ec49d4ad29d52eb5",
+        "name": "Limpiar",
+        "func": "msg.payload = \"\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "1fe2c77418a05c6b"
+            ]
+        ]
+    },
+    {
+        "id": "ca246714d284bf56",
+        "type": "link in",
+        "z": "ec49d4ad29d52eb5",
+        "name": "link in 6",
+        "links": [
+            "b37c54e540019203"
+        ],
+        "x": 25,
+        "y": 140,
+        "wires": [
+            [
+                "a8832c96b5bc63c6"
+            ]
+        ]
+    },
+    {
+        "id": "b37c54e540019203",
+        "type": "link out",
+        "z": "ec49d4ad29d52eb5",
+        "name": "link out 11",
+        "mode": "link",
+        "links": [
+            "ca246714d284bf56"
+        ],
+        "x": 725,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6f72f10d3d6dc700",
+        "type": "link in",
+        "z": "ec49d4ad29d52eb5",
+        "name": "link in 7",
+        "links": [
+            "1fe2c77418a05c6b"
+        ],
+        "x": 345,
+        "y": 140,
+        "wires": [
+            [
+                "e33e23685342060f"
+            ]
+        ]
+    },
+    {
+        "id": "1fe2c77418a05c6b",
+        "type": "link out",
+        "z": "ec49d4ad29d52eb5",
+        "name": "link out 12",
+        "mode": "link",
+        "links": [
+            "6f72f10d3d6dc700"
+        ],
+        "x": 735,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "a74efc7191915405",
+        "type": "debug",
+        "z": "ec49d4ad29d52eb5",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a5c37a90d9540a6f",
+        "type": "Service Host",
+        "apiBase": "https://api.openai.com/v1",
+        "secureApiKeyHeaderOrQueryName": "Authorization",
+        "organizationId": "",
+        "name": ""
     }
 ]

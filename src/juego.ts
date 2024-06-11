@@ -74,6 +74,13 @@ export class Juego extends Core {
             this.rc.recuperar();
         }
 
+        // EXTERNAL
+        const storage = this.rc.leer("gpt") || {};
+        msg.busqueda = {
+            ...msg.busqueda,
+            ...storage,
+        }
+
         const final = await this.getFromCacheOrQuery(msg, "final");
         console.log("RT JUEGO", "Validado final", final?.headers[0]?.text || "No encontrado");
         msg.final_invalido = final?.headers[0]?.text ? false : true;

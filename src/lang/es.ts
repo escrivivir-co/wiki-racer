@@ -23,6 +23,10 @@ export const ES = {
 
     LEYENDO_OBJETIVO: "Caché %1",
 
-    LEYENDO_OBJETIVO_SCRAP: "Salida a red..."
+    LEYENDO_OBJETIVO_SCRAP: "Salida a red...",
+
+    GPT: {
+        OBJETIVO: "Modo Json: activado. Estamos jugando al Wiki-Racer. A partir de una página de inicio y otra de objetivo, encontrar un camino de páginas enlazadas entre las dos. A partir del siguiente context correspondiente a una página y sus enlaces, elige el siguiente candidato de turno. Responde con solo un JSON con clave 'candidato' y el valor del candidato escogido existente en el array context.candidatos. Indicando en un segundo campo del JSON el índice del candidato escogido en el array. Importante: observa el campo 'camino' para no sugerir opciones ya escogidas y evitar bucles."
+    }
 
 }

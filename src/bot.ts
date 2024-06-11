@@ -114,9 +114,9 @@ export class Bot extends Core {
                 juego = {
                     thread_info: null,
                     clave: msg.clave,
-                    inicio: archivo[msg.inicio].headers[0].text,
-                    final: archivo[msg.final].headers[0].text,
-                    actual: msg.actual_info.text,
+                    inicio: archivo[msg.inicio]?.headers[0].text,
+                    final: archivo[msg.final]?.headers[0].text,
+                    actual: msg.actual_info?.text,
                     base: msg.base
                 }
                 msg.busqueda.juegos.push(juego);
@@ -141,12 +141,12 @@ export class Bot extends Core {
                 const archivo = this.rc.leer("archivo") || {};
                 const mensaje = {
                     base: msg.base,
-                    inicio: archivo[msg.inicio].headers[0].text,
-                    final: archivo[msg.final].headers[0].text,
-                    actual: msg.actual_info.text,
+                    inicio: archivo[msg.inicio]?.headers[0].text,
+                    final: archivo[msg.final]?.headers[0].text,
+                    actual: msg.actual_info?.text,
                     camino: msg.camino.map(c => { return {
-                        anterior: archivo[c.anterior]?.headers[0].text.replace(msg.base, "") || c.anterior,
-                        candidato: archivo[c.candidato]?.headers[0].text.replace(msg.base, "") || c.candidato
+                        anterior: archivo[c.anterior]?.headers[0].text.replace(msg.base, "") || c.anterior.replace(msg.base, ""),
+                        candidato: archivo[c.candidato]?.headers[0].text.replace(msg.base, "") || c.candidato.replace(msg.base, "")
                     }}),
                     candidatos: msg.camino_info.candidatos.internos.map(e => e.text),
                 }

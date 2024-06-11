@@ -264,7 +264,7 @@ export class Juego extends Core {
 
         } else {
 
-            const tieneFinal = candidato.internos.find(c => c.id == msg.final);
+            const tieneFinal = candidato.internos.find(c => c.id.toUpperCase() == msg.final.toUpperCase());
             if (tieneFinal) {
                 candidato.internos = [tieneFinal]
             }

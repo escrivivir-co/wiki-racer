@@ -26,7 +26,7 @@ export const ES = {
     LEYENDO_OBJETIVO_SCRAP: "Salida a red...",
 
     GPT: {
-        OBJETIVO: "Modo Json: activado. Estamos jugando al Wiki-Racer. A partir de una página de inicio y otra de objetivo, encontrar un camino de páginas enlazadas entre las dos. A partir del siguiente context correspondiente a una página y sus enlaces, elige el siguiente candidato de turno. Responde con solo un JSON con clave 'candidato' y el valor del candidato escogido existente en el array context.candidatos. Indicando en un segundo campo del JSON el índice del candidato escogido en el array. Importante: observa el campo 'camino' para no sugerir opciones ya escogidas y evitar bucles."
+        OBJETIVO: "Modo Json: activado. Estamos jugando al Wiki-Racer. A partir de una página de inicio y otra de objetivo, encontrar un camino de páginas enlazadas entre las dos. A partir del siguiente context correspondiente a una página y sus enlaces, elige el siguiente candidato de turno. Responde con solo un JSON con clave 'candidato' y el valor del candidato escogido existente en el array context.candidatos. Indicando en un segundo campo del JSON el índice del candidato escogido en el array. Importante: valida tu respuesta contra el campo 'camino' para no sugerir opciones ya escogidas y evitar bucles, si tu candidato ya está en 'camino' debes escoger otro. Tienes que intentar hacerlo con el menor número enlaces, encontrar el camino más corto. La selección del candidato debe aproximar el camino al campo 'final' aportando un nuevo enlace relacionado con la temática que se busca."
     }
 
 }

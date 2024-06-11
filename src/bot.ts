@@ -12,6 +12,26 @@ export interface ThreadInfo {
     metadata: object;
 }
 
+export interface MensajeIA {
+    base: string;
+    inicio: string;
+    final: string;
+    actual: string;
+    camino: {
+        anterior: string,
+        candidato: string
+    }[]}
+
+export interface JuegoIA {
+    thread_info: any;
+    clave: string;
+    inicio: string;
+    final: string;
+    actual: string;
+    base: string;
+    camino_ia: { mensajes: MensajeIA[] }
+}
+
 export interface Busqueda {
 
     hacia?: EntradaEstructura;
@@ -48,7 +68,7 @@ export interface Busqueda {
     asistentes?: any[];
     set_asistentes?: any[];
 
-    juegos?: any;
+    juegos?: JuegoIA[];
 }
 
 export class Bot extends Core {
@@ -104,7 +124,7 @@ export class Bot extends Core {
             let juegoIndex = msg.busqueda.juegos.findIndex(j => j.clave == msg.clave);
             console.log("RT BOT", "Recupera juego", juegoIndex, msg.clave /*, "de", msg.busqueda.juegos.map(j => j.clave), juegoIndex*/)
 
-            let juego = {};
+            let juego;
 
             if (juegoIndex > -1) {
                 juego = msg.busqueda.juegos[juegoIndex];

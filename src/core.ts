@@ -9,7 +9,7 @@ export class Core {
     T = ES;
 
     rc: RTCache;
-    scraper;
+    scraper: Engine;
 
     msg = {... JUEGO};
 
@@ -17,7 +17,7 @@ export class Core {
 
     }
 
-    async getFromCacheOrQuery(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
+    async getFromCacheOrQuery(msg: Msg, key: string = "actual", extraerReverseEnlaces: boolean): Promise<EntradaEstructura> {
 
         if (!this.scraper) {
             this.scraper = new Engine(msg.base);
@@ -29,11 +29,11 @@ export class Core {
         const storage = this.rc.leer("archivo") || {};
         let candidato = storage[target] as unknown as EntradaEstructura;
 
-        if (!candidato) {
+        if (!candidato || extraerReverseEnlaces) {
 
             msg.turno.push(this.T.LEYENDO_OBJETIVO_SCRAP);
 
-            candidato = await this.leer(msg, key);
+            candidato = await this.leer(msg, key, extraerReverseEnlaces);
 
             if (candidato &&
                 candidato.headers?.length > 0
@@ -48,15 +48,17 @@ export class Core {
 
     }
 
-    async leer(msg: Msg, key: string = "actual"): Promise<EntradaEstructura> {
+    async leer(msg: Msg, key: string = "actual", extraerReverseEnlaces: boolean): Promise<EntradaEstructura> {
 
         const target = msg[key]
 
-        const solucion = await this.scraper.extraerReverseEnlaces(target);
-        const storage = this.rc.leer("reverse") || {};
-        storage[target] = solucion;
-        this.rc.guardar("reverse", storage);
-        this.rc.persistir();
+        if (extraerReverseEnlaces) { // Force
+            const solucion = await this.scraper.extraerReverseEnlaces(target);
+            const storage = this.rc.leer("reverse") || {};
+            storage[target] = solucion;
+            this.rc.guardar("reverse", storage);
+            this.rc.persistir();
+        }
 
         return await this.scraper.extraerEnlaces(target, msg.actual_title);
 

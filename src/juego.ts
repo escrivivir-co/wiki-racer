@@ -1,3 +1,4 @@
+import { JuegoIA } from "./bot";
 import { Core } from "./core";
 import { Etapa, Error } from "./estado";
 import { Engine, EntradaEstructura} from './scraper/engine';
@@ -81,7 +82,7 @@ export class Juego extends Core {
             ...storage,
         }
 
-        const final = await this.getFromCacheOrQuery(msg, "final");
+        const final = await this.getFromCacheOrQuery(msg, "final", false);
         console.log("RT JUEGO", "Validado final", final?.headers[0]?.text || "No encontrado");
         msg.final_invalido = final?.headers[0]?.text ? false : true;
 
@@ -174,6 +175,28 @@ export class Juego extends Core {
                 msg.restaurar_commit = false;
                 msg.camino.splice((indice + 1), msg.camino.length - indice);
                 msg.guion.splice((indice + 1), msg.guion.length - indice);
+
+                const juego = msg.busqueda.juegos.find(f => f.clave == msg.clave) as JuegoIA;
+                try {
+                    if (juego) {
+                        console.log("RT JUEGO", "Borrar - ANTES", juego.camino_ia.mensajes.length)
+                        const indexes = []
+                        juego.camino_ia?.mensajes.forEach((c, index) => {
+                            console.log("RT JUEGO", "Restaurar ia", c.actual)
+                            if (!msg.camino.find(cc => cc.anterior == c.actual)) {
+                                indexes.push(index)
+                            }
+                        })
+                        console.log("RT JUEGO", "Borrar", indexes)
+                        indexes.forEach(i => {
+                            juego.camino_ia.mensajes.splice(i, 1)
+                        })
+                        console.log("RT JUEGO", "Borrar - DESPUES", juego.camino_ia.mensajes.length)
+                    }
+                } catch(ex) {
+                    console.log("RT JUEGO", "Error al restaurar sugerencias IA", ex.message, juego)
+                }
+
                 console.log("RT JUEGO", "Restaurado commit", indice, "Caminos final", msg.camino.length /*, msg.actual_info*/);
                 console.log("RT JUEGO", "Restaurado commit", indice, "Guion final", msg.guion.length /*, msg.actual_info*/);
             }
@@ -248,7 +271,7 @@ export class Juego extends Core {
             }
         }
 
-        const candidato = await this.getFromCacheOrQuery(msg);
+        const candidato = await this.getFromCacheOrQuery(msg, "actual", msg.pista != null && msg.pista != "");
 
         if (!candidato) {
 

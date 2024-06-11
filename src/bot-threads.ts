@@ -119,7 +119,7 @@ export class Bot extends Core {
             let juegoIndex = msg.busqueda.juegos.findIndex(j => j.clave == msg.clave);
             console.log("RT BOT", "Recupera juego", juegoIndex, msg.clave /*, "de", msg.busqueda.juegos.map(j => j.clave), juegoIndex*/)
 
-            let juego = {};
+            let juego;
 
             if (juegoIndex > -1) {
                 juego = msg.busqueda.juegos[juegoIndex];

@@ -610,7 +610,7 @@
                 "y": 30,
                 "wires": [
                     {
-                        "id": "87a127443c696d74"
+                        "id": "f7c632816ecf72cb"
                     }
                 ]
             }
@@ -649,9 +649,7 @@
                 "5ce365068007079b",
                 "27ebe0027f9ebd5a",
                 "4adf4d3e2d5a90b5",
-                "581a0ddae1e8039b",
-                "70fd7468189e91be",
-                "917cd4d595b86165"
+                "581a0ddae1e8039b"
             ]
         ]
     },
@@ -888,7 +886,7 @@
         "wires": [
             [
                 "f3368f00fe1779a2",
-                "ffafaa0f10e9441f"
+                "f99a94108331dd91"
             ]
         ]
     },
@@ -900,7 +898,7 @@
         "name": "Actual",
         "order": 2,
         "width": "12",
-        "height": "8",
+        "height": "4",
         "format": "<h3 ng-bind-html=\"msg.payload.text\"></h3>\n<div ng-bind-html=\"msg.payload.data.summary.extract_html\"></div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
@@ -1052,7 +1050,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1480,
+        "x": 1520,
         "y": 300,
         "wires": [
             []
@@ -1380,8 +1378,7 @@
         "y": 500,
         "wires": [
             [
-                "44388924ff38df15",
-                "32967b12be6f829a"
+                "44388924ff38df15"
             ]
         ]
     },
@@ -1454,23 +1451,6 @@
         "wires": []
     },
     {
-        "id": "32967b12be6f829a",
-        "type": "debug",
-        "z": "527edf7c34172356",
-        "name": "TO_WIKI",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "wiki",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 380,
-        "y": 560,
-        "wires": []
-    },
-    {
         "id": "0bd3614c6b671718",
         "type": "function",
         "z": "527edf7c34172356",
@@ -1506,8 +1486,7 @@
         "y": 220,
         "wires": [
             [
-                "6c5359a6fcd7070f",
-                "139689386bd3bc46"
+                "6c5359a6fcd7070f"
             ]
         ]
     },
@@ -1601,23 +1580,6 @@
         ]
     },
     {
-        "id": "70fd7468189e91be",
-        "type": "debug",
-        "z": "527edf7c34172356",
-        "name": "FROM_WIKI",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "wiki",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 550,
-        "y": 600,
-        "wires": []
-    },
-    {
         "id": "9d2e514a476ce74f",
         "type": "ui_form",
         "z": "527edf7c34172356",
@@ -1680,38 +1642,29 @@
         ]
     },
     {
-        "id": "917cd4d595b86165",
-        "type": "debug",
+        "id": "f99a94108331dd91",
+        "type": "switch",
         "z": "527edf7c34172356",
-        "name": "XXXX",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 830,
-        "y": 700,
-        "wires": []
-    },
-    {
-        "id": "139689386bd3bc46",
-        "type": "debug",
-        "z": "527edf7c34172356",
-        "name": "XXXX",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1130,
-        "y": 180,
-        "wires": []
+        "name": "",
+        "property": "payload.data.html",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Cargando",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1370,
+        "y": 340,
+        "wires": [
+            [
+                "ffafaa0f10e9441f"
+            ]
+        ]
     },
     {
         "id": "75561547e129ef16",
@@ -1756,301 +1709,5 @@
         "width": "12",
         "collapse": true,
         "className": ""
-    },
-    {
-        "id": "ec49d4ad29d52eb5",
-        "type": "tab",
-        "label": "WikiRacer con IA",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "ea644d267100156a",
-        "type": "bot",
-        "z": "ec49d4ad29d52eb5",
-        "name": "bot",
-        "world": "",
-        "x": 230,
-        "y": 320,
-        "wires": [
-            [
-                "8242f2f6e711a3df"
-            ]
-        ]
-    },
-    {
-        "id": "fdf48db53c3ae7c0",
-        "type": "function",
-        "z": "ec49d4ad29d52eb5",
-        "name": "Store wiki",
-        "func": "flow.set(\"wiki\", msg.wiki);\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 200,
-        "wires": [
-            [
-                "ea644d267100156a"
-            ]
-        ]
-    },
-    {
-        "id": "20a8185e1627d4d2",
-        "type": "subflow:527edf7c34172356",
-        "z": "ec49d4ad29d52eb5",
-        "name": "",
-        "x": 470,
-        "y": 200,
-        "wires": [
-            [
-                "fdf48db53c3ae7c0"
-            ]
-        ]
-    },
-    {
-        "id": "a8832c96b5bc63c6",
-        "type": "function",
-        "z": "ec49d4ad29d52eb5",
-        "name": "complete",
-        "func": "const m = flow.get(\"wiki\").busqueda;\n\nconst toComplete = {\n    payload: {\n        messages: [\n            {\n                role: \"user\",\n                content: JSON.stringify({\n                    instructions: m.instrucciones,\n                    context: flow.get(\"IA_PISTA\")\n                })\n            }\n        ],\n        model: \"gpt-4o\"\n    }\n}\n\nreturn toComplete;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 120,
-        "y": 140,
-        "wires": [
-            [
-                "206a1e48f9f29993"
-            ]
-        ]
-    },
-    {
-        "id": "a44019b1c32d4c48",
-        "type": "ui_form",
-        "z": "ec49d4ad29d52eb5",
-        "name": "",
-        "label": "Sugerencia (IA)",
-        "group": "9dbb6ba740014442",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "options": [
-            {
-                "label": "actual",
-                "value": "actual",
-                "type": "text",
-                "required": true,
-                "rows": null
-            }
-        ],
-        "formValue": {
-            "actual": ""
-        },
-        "payload": "",
-        "submit": "Ejecutar",
-        "cancel": "Reset",
-        "topic": "topic",
-        "topicType": "msg",
-        "splitLayout": "",
-        "className": "",
-        "x": 560,
-        "y": 280,
-        "wires": [
-            [
-                "b37c54e540019203",
-                "1fe2c77418a05c6b"
-            ]
-        ]
-    },
-    {
-        "id": "8242f2f6e711a3df",
-        "type": "function",
-        "z": "ec49d4ad29d52eb5",
-        "name": "[",
-        "func": "var juegos = flow.get(\"wiki\").busqueda.juegos || [];\n\nconst juego = juegos\n    .find(c => c.clave == flow.get(\"wiki\").clave) \n        || { camino_ia: { mensajes: [] }};\n\nconst incognita = juego.camino_ia\n    .mensajes[juego.camino_ia.mensajes.length - 1];\n\nflow.set(\"IA_PISTA\", incognita);\n\nreturn {\n    payload: { \n        clave: flow.get(\"wiki\").clave,\n        incognita,\n        actual: incognita?.actual\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 320,
-        "wires": [
-            [
-                "a44019b1c32d4c48",
-                "3bdbd98e39928563",
-                "a74efc7191915405"
-            ]
-        ]
-    },
-    {
-        "id": "206a1e48f9f29993",
-        "type": "OpenAI API",
-        "z": "ec49d4ad29d52eb5",
-        "name": "RUN",
-        "property": "payload",
-        "propertyType": "msg",
-        "service": "a5c37a90d9540a6f",
-        "method": "createChatCompletion",
-        "x": 150,
-        "y": 200,
-        "wires": [
-            [
-                "0848fc53f8f47725"
-            ]
-        ]
-    },
-    {
-        "id": "0848fc53f8f47725",
-        "type": "function",
-        "z": "ec49d4ad29d52eb5",
-        "name": "Candidato",
-        "func": "const m = JSON.parse(msg\n    .payload\n    .choices[0]\n    .message\n    .content.replace(\"```json\", \"\").replace(\"```\", \"\"));\n\nmsg.payload = m.candidato;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 200,
-        "wires": [
-            [
-                "e33e23685342060f",
-                "20a8185e1627d4d2"
-            ]
-        ]
-    },
-    {
-        "id": "e33e23685342060f",
-        "type": "ui_text",
-        "z": "ec49d4ad29d52eb5",
-        "group": "9dbb6ba740014442",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Sugerencia",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 510,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "3bdbd98e39928563",
-        "type": "function",
-        "z": "ec49d4ad29d52eb5",
-        "name": "Limpiar",
-        "func": "msg.payload = \"\";\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 320,
-        "wires": [
-            [
-                "1fe2c77418a05c6b"
-            ]
-        ]
-    },
-    {
-        "id": "ca246714d284bf56",
-        "type": "link in",
-        "z": "ec49d4ad29d52eb5",
-        "name": "link in 6",
-        "links": [
-            "b37c54e540019203"
-        ],
-        "x": 25,
-        "y": 140,
-        "wires": [
-            [
-                "a8832c96b5bc63c6"
-            ]
-        ]
-    },
-    {
-        "id": "b37c54e540019203",
-        "type": "link out",
-        "z": "ec49d4ad29d52eb5",
-        "name": "link out 11",
-        "mode": "link",
-        "links": [
-            "ca246714d284bf56"
-        ],
-        "x": 725,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "6f72f10d3d6dc700",
-        "type": "link in",
-        "z": "ec49d4ad29d52eb5",
-        "name": "link in 7",
-        "links": [
-            "1fe2c77418a05c6b"
-        ],
-        "x": 345,
-        "y": 140,
-        "wires": [
-            [
-                "e33e23685342060f"
-            ]
-        ]
-    },
-    {
-        "id": "1fe2c77418a05c6b",
-        "type": "link out",
-        "z": "ec49d4ad29d52eb5",
-        "name": "link out 12",
-        "mode": "link",
-        "links": [
-            "6f72f10d3d6dc700"
-        ],
-        "x": 735,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "a74efc7191915405",
-        "type": "debug",
-        "z": "ec49d4ad29d52eb5",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 360,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "a5c37a90d9540a6f",
-        "type": "Service Host",
-        "apiBase": "https://api.openai.com/v1",
-        "secureApiKeyHeaderOrQueryName": "Authorization",
-        "organizationId": "",
-        "name": ""
     }
 ]

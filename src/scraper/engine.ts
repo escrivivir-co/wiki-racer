@@ -31,7 +31,7 @@ export class Engine {
     }
 
     // Método asincrónico para extraer enlaces de una URL dada
-    async extraerReverseEnlaces(url: string, title: string): Promise<EntradaEstructura> {
+    async extraerReverseEnlaces(url: string): Promise<EntradaEstructura> {
 
         try {
             const newUrl = url.replace(this.base, "");

@@ -1,4 +1,5 @@
 import { Etapa, Error } from "./estado";
+import * as path from "path";
 import { ES } from "./lang/es";
 import { Engine, EntradaEstructura, EntradaElemento } from './scraper/engine';
 import { Msg, LineaGuion, Camino } from "./scraper/tipos";
@@ -6,7 +7,8 @@ import { RTCache } from "./utils/cache";
 
 export const JUEGO: Msg = {
 
-    disco: "/Users/morente/Desktop/wiki-racer/CRIPTA",
+    // Carpeta local para caché/runtime (por defecto, ./CRIPTA relativa al cwd)
+    disco: path.resolve(process.cwd(), "CRIPTA"),
     base : "https://es.wikipedia.org/wiki/",
     clave: "Race-1",
 

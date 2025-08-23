@@ -48,7 +48,7 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"clave\":\"Juego-1\",\"inicio\":\"Esquema_Nacional_de_Seguridad\",\"final\":\"Isaac_Asimov\",\"base\":\"https://es.wikipedia.org/wiki/\",\"disco\":\"/Users/morente/Desktop/wiki-racer/CRIPTA\"}",
+        "payload": "{\"clave\":\"Juego-1\",\"inicio\":\"Esquema_Nacional_de_Seguridad\",\"final\":\"Isaac_Asimov\",\"base\":\"https://es.wikipedia.org/wiki/\",\"disco\":\"E:\\\\LAB_AGOSTO\\\\wiki-racer\"}",
         "payloadType": "json",
         "x": 170,
         "y": 120,
@@ -262,7 +262,8 @@
         "wires": [
             [
                 "ee5987e72dbb575a",
-                "ae1150a29281682b"
+                "ae1150a29281682b",
+                "a9687946ce935f15"
             ]
         ]
     },
@@ -366,7 +367,8 @@
         "y": 320,
         "wires": [
             [
-                "13ead93121f53caa"
+                "13ead93121f53caa",
+                "1c427aa4ac45dbaf"
             ]
         ]
     },
@@ -419,7 +421,7 @@
         "group": "aad5a613de267b5b",
         "name": "Detalles",
         "order": 1,
-        "width": "12",
+        "width": "18",
         "height": "41",
         "format": "\n\n<div ng-bind-html=\"msg.payload.data.html\" style=\"\"></div>\n\n\n",
         "storeOutMessages": true,
@@ -733,9 +735,7 @@
         "name": "link out 1",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "72aa6e95d0f2bf37"
         ],
         "x": 815,
         "y": 120,
@@ -751,7 +751,6 @@
             "b052ea7f3b135204",
             "1134c2739ecaf947",
             "64798d77edfb0cde",
-            "a8f0a127f4a0600b",
             "fd39a85e05f66aec"
         ],
         "x": 115,
@@ -770,9 +769,7 @@
         "name": "link out 2",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "72aa6e95d0f2bf37"
         ],
         "x": 1215,
         "y": 440,
@@ -785,9 +782,7 @@
         "name": "link out 3",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "72aa6e95d0f2bf37"
         ],
         "x": 275,
         "y": 200,
@@ -800,9 +795,7 @@
         "name": "link out 4",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "72aa6e95d0f2bf37"
         ],
         "x": 1125,
         "y": 580,
@@ -879,7 +872,7 @@
         "type": "function",
         "z": "eaf05303a4bedcb4",
         "name": "FILTRAR",
-        "func": "var todos = flow.get(\"LAST_CANDIDATOS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf(match.toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
+        "func": "var todos = flow.get(\"LAST_CANDIDATOS_TABLA\");\n\nvar match = msg.payload;\n\nvar payload = match ? \n    todos.filter(\n        t => t.title.toUpperCase().indexOf((match || \"\").toUpperCase()) > -1\n    ) : todos;\n\nreturn {\n    payload\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1052,7 +1045,7 @@
         "group": "c733ae8c8f2dfb0a",
         "name": "Pistas",
         "order": 4,
-        "width": "12",
+        "width": "6",
         "height": "17",
         "columns": [
             {
@@ -1184,9 +1177,7 @@
         "name": "link out 6",
         "mode": "link",
         "links": [
-            "72aa6e95d0f2bf37",
-            "508c82474e033f50",
-            "b14576e42c0cc553"
+            "72aa6e95d0f2bf37"
         ],
         "x": 635,
         "y": 1000,
@@ -1336,7 +1327,7 @@
         "label": "Activar Pista",
         "group": "c733ae8c8f2dfb0a",
         "order": 2,
-        "width": "12",
+        "width": "6",
         "height": "9",
         "options": [
             {
@@ -1580,11 +1571,45 @@
         ]
     },
     {
+        "id": "1c427aa4ac45dbaf",
+        "type": "debug",
+        "z": "eaf05303a4bedcb4",
+        "name": "CANDIDATOS",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "a9687946ce935f15",
+        "type": "debug",
+        "z": "eaf05303a4bedcb4",
+        "name": "DETALLES",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 660,
+        "wires": []
+    },
+    {
         "id": "75561547e129ef16",
         "type": "ui_group",
         "name": "Configuración",
         "tab": "e260e9f9eb787f79",
-        "order": 6,
+        "order": 4,
         "disp": true,
         "width": "6",
         "collapse": true,
@@ -1595,7 +1620,7 @@
         "type": "ui_group",
         "name": "Partida",
         "tab": "e260e9f9eb787f79",
-        "order": 2,
+        "order": 1,
         "disp": true,
         "width": "6",
         "collapse": true,
@@ -1606,7 +1631,7 @@
         "type": "ui_group",
         "name": "Turno actual",
         "tab": "e260e9f9eb787f79",
-        "order": 5,
+        "order": 3,
         "disp": true,
         "width": "12",
         "collapse": true,
@@ -1617,9 +1642,9 @@
         "type": "ui_group",
         "name": "Detalles",
         "tab": "e260e9f9eb787f79",
-        "order": 4,
+        "order": 2,
         "disp": true,
-        "width": "12",
+        "width": "18",
         "collapse": true,
         "className": ""
     },
@@ -1628,9 +1653,9 @@
         "type": "ui_group",
         "name": "Pista",
         "tab": "e260e9f9eb787f79",
-        "order": 3,
+        "order": 5,
         "disp": true,
-        "width": "12",
+        "width": "6",
         "collapse": true,
         "className": ""
     },
@@ -1641,5 +1666,15 @@
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "ecebd97fd58821d2",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-wiki-racer": "1.2.0",
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-ui-table": "0.4.5"
+        }
     }
 ]

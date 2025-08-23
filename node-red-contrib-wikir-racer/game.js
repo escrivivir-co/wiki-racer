@@ -1,4 +1,15 @@
-var W = require("/Users/morente/Desktop/wiki-racer/dist/juego.js");
+// Carga el motor del juego desde la build local, con varias rutas posibles
+const path = require("path");
+let W;
+for (const candidate of [
+    path.join(__dirname, "../dist/juego.js"), // cuando nodesDir apunta al repo raíz
+    path.join(__dirname, "./dist/juego.js"),  // cuando el dist se empaqueta dentro del módulo
+]) {
+    try { W = require(candidate); break; } catch(_) {}
+}
+if (!W) {
+    throw new Error("No se encuentra dist/juego.js. Ejecuta 'npm run build' en wiki-racer o empaqueta dist dentro del nodo.");
+}
 
 module.exports = function(RED) {
     function GameNode(config) {

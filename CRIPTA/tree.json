@@ -12124,15 +12124,10 @@
 	},
 	"reverse": {
 		"https://es.wikipedia.org/wiki/": {
-			"internos": [
-				{
-					"id": "https://es.wikipedia.org/wiki/Wikipedia:Limitaci%C3%B3n_general_de_responsabilidad",
-					"text": "Limitación de responsabilidad",
-					"ocurrencias": 1
-				}
-			],
-			"descartados": [],
-			"externos": []
+			"externos": [],
+			"internos": [],
+			"headers": [],
+			"descartados": []
 		},
 		"https://es.wikipedia.org/wiki/Isaac_Asimov": {
 			"internos": [
